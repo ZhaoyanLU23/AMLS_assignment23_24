@@ -92,19 +92,46 @@ $ conda activate amls-final-zhaoyanlu
 $ pip install -f requirements.txt
 ```
 
-### Solve Tasks
-
-* All options provided
+* All actions provided
 
 ```bash
 $ python main.py --help
-# TODO: add help
+usage: main.py [-h] [-v] {solve,info} ...
+
+AMLS Final Assignment
+
+positional arguments:
+  {solve,info}  actions provided
+
+options:
+  -h, --help    show this help message and exit
+  -v            verbose
+
+$ python main.py solve --help
+usage: main.py solve [-h] [--task TASK]
+
+options:
+  -h, --help   show this help message and exit
+  --task TASK  task to solve: A, B, or all; default: all
 ```
+
+* Show info
+
+```bash
+$ python main.py info
+-------------------------------------
+|       AMLS Assignment 23-24       |
+|         Name: Zhaoyan Lu          |
+|        Student No: 23049710       |
+-------------------------------------
+```
+
+### Solve Tasks
 
 * Solve all tasks
 
 ```bash
-$ python main.py solve --task all
+$ python main.py solve
 # TODO: only training
 ```
 
