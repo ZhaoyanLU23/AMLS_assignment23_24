@@ -22,6 +22,7 @@
 * [ ] TODO: Explain the role of each file.
 
 ```bash
+# TODO: update repo structure
 $ tree
 .
 ├── A
@@ -66,6 +67,7 @@ Datasets
 * [ ] TODO: Add assignment requirements.
 
 ```bash
+# TODO: update requirements.txt
 $ cat requirements.txt
 # format python files
 black
@@ -107,6 +109,7 @@ options:
   -h, --help    show this help message and exit
   -v            verbose
 
+# TODO: update help
 $ python main.py solve --help
 usage: main.py solve [-h] [--task TASK]
 
