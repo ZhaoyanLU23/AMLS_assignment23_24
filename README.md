@@ -1,8 +1,23 @@
 # AMLS_assignment23_24
 
+* Name: Zhaoyan LU
+* Student ID: 23049710
+
+## Contents
+
+- [Overview](#Overview)
+- [Repo Structure](#Repo-Structure)
+- [Datasets](#Datasets)
+- [Requirements](#Requirements)
+- [Usage](#Usage)
+    - [Setup](#Setup)
+    - [Solve Tasks](#Solve-Tasks)
+
+## Overview
+
 * [ ] TODO: Add repo description here.
 
-## Files
+## Repo Structure
 
 * [ ] TODO: Explain the role of each file.
 
@@ -77,7 +92,7 @@ $ conda activate amls-final-zhaoyanlu
 $ pip install -f requirements.txt
 ```
 
-### Solve tasks
+### Solve Tasks
 
 * All options provided
 
