@@ -1,0 +1,9 @@
+name: amls-final-zhaoyanlu
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python=3.11
+  - numpy
+  - black
+prefix: /Users/luzhaoyan/workspace/miniconda3/envs/amls-final-zhaoyanlu
