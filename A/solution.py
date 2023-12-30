@@ -37,7 +37,7 @@ class Solution:
         dataset = Dataset(path)
         logger.info("Read data finished!")
 
-        clf = xgb.XGBClassifier()
+        clf = xgb.XGBClassifier(verbosity=2, device="cuda", n_jobs=3)
         logger.info("Start fitting...")
         # Fit the model, test sets are used for early stopping.
         clf.fit(dataset.X_train, dataset.y_train)

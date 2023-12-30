@@ -82,10 +82,10 @@ numpy
 scikit-learn
 # GPU version
 # If you want to use CPU only, change to py-xgboost-cpu
-xgboost
+py-xgboost-gpu
 ```
 
-**NOTE**: `xgboost` will use GPU. If you want to use CPU only, change to `py-xgboost-cpu`
+**NOTE**: `py-xgboost-gpu` will use GPU. If you want to use CPU only, change to `py-xgboost-cpu`
 
 ## Usage
 
