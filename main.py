@@ -5,6 +5,7 @@
 import os
 import sys
 import logging
+from typing import List
 
 from utils.logger import logger
 from A.solution import Solution as SolutionA
@@ -47,7 +48,13 @@ def setup_parse():
         "--task",
         action="store",
         default="all",
-        help=f"task to solve: A, B, or all; default: all",
+        help="task to solve: A, B, or all; default: all",
+    )
+    solve_subparser.add_argument(
+        "--stages",
+        action="store",
+        default="val,train,test",
+        help="task stages: val, train, test, or all; default: val,train,test",
     )
 
     args, _ = parser.parse_known_args()
@@ -62,27 +69,31 @@ def print_info():
     print("-------------------------------------")
 
 
-def solve(task: str):
+def solve(task: str, stages: List[str]):
     logger.info("-----------[Tasks running]-----------")
     if task in ["A", "all"]:
         task_a_data_abs_path = os.path.join(
             CWD, "Datasets", "PneumoniaMNIST", "pneumoniamnist.npz"
         )
         if os.path.exists(task_a_data_abs_path):
-            solution_A = SolutionA()
-            solution_A.solve(task_a_data_abs_path)
+            solution_A = SolutionA(task_a_data_abs_path)
+            solution_A.solve(stages)
         else:
-            raise Exception(f"No dataset for task A: {task_a_data_abs_path}!")
+            raise Exception(
+                f"No dataset for task A: {task_a_data_abs_path}! Please run `make download`."
+            )
 
     if task in ["B", "all"]:
         task_b_data_abs_path = os.path.join(
             CWD, "Datasets", "PathMNIST", "pathmnist.npz"
         )
         if os.path.exists(task_b_data_abs_path):
-            solution_B = SolutionB()
-            solution_B.solve(task_b_data_abs_path)
+            solution_B = SolutionB(task_b_data_abs_path)
+            solution_B.solve(stages)
         else:
-            raise Exception(f"No dataset for task B: {task_b_data_abs_path}!")
+            raise Exception(
+                f"No dataset for task B: {task_b_data_abs_path}! Please run `make download`."
+            )
 
     logger.info("-----------[Tasks finished]----------")
 
@@ -95,7 +106,8 @@ def main():
         if args.action == "info":
             print_info()
         elif args.action == "solve":
-            solve(args.task)
+            stages = args.stages.split(",")
+            solve(args.task, stages)
         else:
             raise Exception(f"Unsupported action: {args.action}")
     except Exception as e:

@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 import os
 import sys
+from typing import List
 
 # hack here
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
@@ -14,18 +15,31 @@ import xgboost as xgb
 
 
 class Solution:
-    def __init__(self):
-        pass
+    def __init__(self, path: str):
+        self.dataset = Dataset(path)
 
-    def solve(self, data_abs_path: str):
+    def solve(self, stages: List[str]):
         logger.info("=====================================")
         logger.info("|         Solving Task B ...        |")
         logger.info("=====================================")
 
-        # TODO: Add your solution here
-        self.demo(data_abs_path)
+        if "val" in stages:
+            self.val()
+        if "train" in stages:
+            self.train()
+        if "test" in stages:
+            self.test()
 
         logger.info("----------Task B finished!-----------")
+
+    def val(self):
+        pass
+
+    def train(self):
+        pass
+
+    def test(self):
+        pass
 
     def demo(self, path: str):
         """Cost one hour on CPU.
@@ -44,7 +58,7 @@ class Solution:
         dataset = Dataset(path)
         logger.info("Read data finished!")
 
-        clf = xgb.XGBClassifier()
+        clf = xgb.XGBClassifier(verbosity=2, device="cuda", n_jobs=3)
         logger.info("Start fitting...")
         # Fit the model, test sets are used for early stopping.
         clf.fit(dataset.X_train, dataset.y_train)

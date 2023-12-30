@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 import os
 import sys
+from typing import List
 
 # hack here
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
@@ -14,18 +15,31 @@ import xgboost as xgb
 
 
 class Solution:
-    def __init__(self):
-        pass
+    def __init__(self, path: str):
+        self.dataset = Dataset(path)
 
-    def solve(self, data_abs_path: str):
+    def solve(self, stages: List[str]):
         logger.info("=====================================")
         logger.info("|         Solving Task A ...        |")
         logger.info("=====================================")
 
-        # TODO: add your solution here
-        self.demo(data_abs_path)
+        if "val" in stages:
+            self.val()
+        if "train" in stages:
+            self.train()
+        if "test" in stages:
+            self.test()
 
         logger.info("----------Task A finished!-----------")
+
+    def val(self):
+        pass
+
+    def train(self):
+        pass
+
+    def test(self):
+        pass
 
     def demo(self, path: str):
         """Cost 2s on CPU.

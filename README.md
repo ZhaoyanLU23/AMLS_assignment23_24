@@ -124,11 +124,13 @@ optional arguments:
 
 # TODO: update help
 $ python main.py solve --help
-usage: main.py solve [-h] [--task TASK]
+usage: main.py solve [-h] [--task TASK] [--stages STAGES]
 
-options:
-  -h, --help   show this help message and exit
-  --task TASK  task to solve: A, B, or all; default: all
+optional arguments:
+  -h, --help       show this help message and exit
+  --task TASK      task to solve: A, B, or all; default: all
+  --stages STAGES  task stages: val, train, test, or all;
+                   default: val,train,test
 ```
 
 * Show info
@@ -148,7 +150,10 @@ $ python main.py info
 
 ```bash
 $ python main.py -v solve
-# TODO: only training
+# only training
+$ python main.py -v solve --stages train
+# training and testing
+$ python main.py -v solve --stages train,test
 ```
 
 * Task A
@@ -156,7 +161,10 @@ $ python main.py -v solve
 ```bash
 # Solve Task A
 $ python main.py -v solve --task A
-# TODO: only training
+# only training
+$ python main.py -v solve --task A --stages train
+# training and testing
+$ python main.py -v solve --task A --stages train,test
 ```
 
 * Task B
@@ -164,5 +172,8 @@ $ python main.py -v solve --task A
 ```bash
 # Solve Task B
 $ python main.py -v solve --task B
-# TODO: only training
+# only training
+$ python main.py -v solve --task A --stages train
+# training and testing
+$ python main.py -v solve --task B --stages train,test
 ```
