@@ -85,7 +85,7 @@ scikit-learn
 py-xgboost-gpu
 ```
 
-**NOTE**: `py-xgboost-gpu` will use GPU. If you want to use CPU only, use `py-xgboost-cpu` and set the device using `--device cpu`.
+**NOTE**: `py-xgboost-gpu` will use GPU. If you want to use CPU only, use [`py-xgboost-cpu`](https://xgboost.readthedocs.io/en/stable/install.html#conda) and set the device using `--device cpu`.
 
 ## Usage
 
