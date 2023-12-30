@@ -81,11 +81,11 @@ numpy
 # Models
 scikit-learn
 # GPU version
-# If you want to use CPU only, change to py-xgboost-cpu
+# If you want to use CPU only, use py-xgboost-cpu
 py-xgboost-gpu
 ```
 
-**NOTE**: `py-xgboost-gpu` will use GPU. If you want to use CPU only, change to `py-xgboost-cpu`
+**NOTE**: `py-xgboost-gpu` will use GPU. If you want to use CPU only, use `py-xgboost-cpu` and set the device using `--device cpu`.
 
 ## Usage
 
@@ -125,12 +125,15 @@ optional arguments:
 # TODO: update help
 $ python main.py solve --help
 usage: main.py solve [-h] [--task TASK] [--stages STAGES]
+                     [--device DEVICE]
 
 optional arguments:
   -h, --help       show this help message and exit
   --task TASK      task to solve: A, B, or all; default: all
-  --stages STAGES  task stages: val, train, test, or all;
-                   default: val,train,test
+  --stages STAGES  task stages: val, train, test, or all; default:
+                   val,train,test
+  --device DEVICE  Device ordinal for xgboost, available options:
+                   cpu, cuda, and gpu; default: cuda
 ```
 
 * Show info

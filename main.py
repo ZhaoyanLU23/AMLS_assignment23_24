@@ -56,6 +56,12 @@ def setup_parse():
         default="val,train,test",
         help="task stages: val, train, test, or all; default: val,train,test",
     )
+    solve_subparser.add_argument(
+        "--device",
+        action="store",
+        default="cuda",
+        help="Device ordinal for xgboost, available options: cpu, cuda, and gpu; default: cuda",
+    )
 
     args, _ = parser.parse_known_args()
     return args
@@ -69,7 +75,7 @@ def print_info():
     print("-------------------------------------")
 
 
-def solve(task: str, stages: List[str]):
+def solve(task: str, stages: List[str], device: str):
     logger.info("-----------[Tasks running]-----------")
     if task in ["A", "all"]:
         task_a_data_abs_path = os.path.join(
@@ -77,7 +83,7 @@ def solve(task: str, stages: List[str]):
         )
         if os.path.exists(task_a_data_abs_path):
             solution_A = SolutionA(task_a_data_abs_path)
-            solution_A.solve(stages)
+            solution_A.solve(stages, device)
         else:
             raise Exception(
                 f"No dataset for task A: {task_a_data_abs_path}! Please run `make download`."
@@ -89,7 +95,7 @@ def solve(task: str, stages: List[str]):
         )
         if os.path.exists(task_b_data_abs_path):
             solution_B = SolutionB(task_b_data_abs_path)
-            solution_B.solve(stages)
+            solution_B.solve(stages, device)
         else:
             raise Exception(
                 f"No dataset for task B: {task_b_data_abs_path}! Please run `make download`."
@@ -107,7 +113,7 @@ def main():
             print_info()
         elif args.action == "solve":
             stages = args.stages.split(",")
-            solve(args.task, stages)
+            solve(args.task, stages, args.device)
         else:
             raise Exception(f"Unsupported action: {args.action}")
     except Exception as e:
