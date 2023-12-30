@@ -15,8 +15,10 @@ import xgboost as xgb
 
 
 class SolutionA(Solution):
-    def __init__(self, path: str, device: str):
-        super().__init__(path, device)
+    def __init__(self, dataset_path: str, device: str, config_path: str):
+        super().__init__(
+            dataset_path=dataset_path, device=device, config_path=config_path
+        )
         self.task_name = "Task A"
 
     def val(self):

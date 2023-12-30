@@ -7,6 +7,12 @@ import sys
 import logging
 from typing import List
 
+from constants import (
+    TASK_A_DATA_ABS_PATH,
+    TASK_B_DATA_ABS_PATH,
+    TASK_A_CONFIG_PATH,
+    TASK_B_CONFIG_PATH,
+)
 from utils.logger import logger, set_log_level
 from A.solution import SolutionA
 from B.solution import SolutionB
@@ -78,27 +84,29 @@ def print_info():
 def solve(task: str, stages: List[str], device: str):
     logger.info("-----------[Tasks running]-----------")
     if task in ["A", "all"]:
-        task_a_data_abs_path = os.path.join(
-            CWD, "Datasets", "PneumoniaMNIST", "pneumoniamnist.npz"
-        )
-        if os.path.exists(task_a_data_abs_path):
-            solution_A = SolutionA(task_a_data_abs_path, device)
+        if os.path.exists(TASK_A_DATA_ABS_PATH):
+            solution_A = SolutionA(
+                dataset_path=TASK_A_DATA_ABS_PATH,
+                device=device,
+                config_path=TASK_A_CONFIG_PATH,
+            )
             solution_A.solve(stages)
         else:
             raise Exception(
-                f"No dataset for task A: {task_a_data_abs_path}! Please run `make download`."
+                f"No dataset for task A: {TASK_A_DATA_ABS_PATH}! Please run `make download`."
             )
 
     if task in ["B", "all"]:
-        task_b_data_abs_path = os.path.join(
-            CWD, "Datasets", "PathMNIST", "pathmnist.npz"
-        )
-        if os.path.exists(task_b_data_abs_path):
-            solution_B = SolutionB(task_b_data_abs_path, device)
+        if os.path.exists(TASK_B_DATA_ABS_PATH):
+            solution_B = SolutionB(
+                dataset_path=TASK_B_DATA_ABS_PATH,
+                device=device,
+                config_path=TASK_B_CONFIG_PATH,
+            )
             solution_B.solve(stages)
         else:
             raise Exception(
-                f"No dataset for task B: {task_b_data_abs_path}! Please run `make download`."
+                f"No dataset for task B: {TASK_B_DATA_ABS_PATH}! Please run `make download`."
             )
 
     logger.info("---------All tasks finished!---------")

@@ -1,0 +1,7 @@
+{
+    "validation": {
+        "params": {
+            "hello": "world"
+        }
+    }
+}
