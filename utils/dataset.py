@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+import os
+
 from .logger import logger
 
 import numpy as np
@@ -12,19 +14,24 @@ class Dataset:
         """Read data from path."""
 
         data = np.load(path)
-        logger.info(f"Dataset[{path}] loading...")
+        logger.info("=====================================")
+        logger.info(f"     Loading {os.path.basename(path)}...")
+        logger.info("=====================================")
 
+        logger.info(
+            "We concatenate the training set and validation set together for a better cross validation."
+        )
         self.X_train = data.get("train_images", np.asarray([]))
         self.X_train = self._reshape_to_2_dims(self.X_train)
+        X_val = data.get("val_images", np.asarray([]))
+        X_val = self._reshape_to_2_dims(X_val)
+        self.X_train = np.concatenate((self.X_train, X_val), axis=0)
         logger.debug(f"X_train shape: {self.X_train.shape}")
-        self.y_train = data.get("train_labels", np.asarray([]))
-        logger.debug(f"y_train shape: {self.y_train.shape}")
 
-        self.X_val = data.get("val_images", np.asarray([]))
-        self.X_val = self._reshape_to_2_dims(self.X_val)
-        logger.debug(f"X_val shape: {self.X_val.shape}")
-        self.y_val = data.get("val_labels", np.asarray([]))
-        logger.debug(f"y_val shape: {self.y_val.shape}")
+        self.y_train = data.get("train_labels", np.asarray([]))
+        y_val = data.get("val_labels", np.asarray([]))
+        self.y_train = np.concatenate((self.y_train, y_val), axis=0)
+        logger.debug(f"y_train shape: {self.y_train.shape}")
 
         self.X_test = data.get("test_images", np.asarray([]))
         self.X_test = self._reshape_to_2_dims(self.X_test)

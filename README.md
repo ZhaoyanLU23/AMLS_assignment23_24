@@ -152,6 +152,7 @@ $ python main.py info
 * Solve all tasks
 
 ```bash
+# Run all stages for all tasks
 $ python main.py -v solve
 # only training
 $ python main.py -v solve --stages train

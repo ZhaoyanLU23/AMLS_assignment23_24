@@ -7,7 +7,7 @@ import sys
 import logging
 from typing import List
 
-from utils.logger import logger
+from utils.logger import logger, set_log_level
 from A.solution import SolutionA
 from B.solution import SolutionB
 
@@ -82,8 +82,8 @@ def solve(task: str, stages: List[str], device: str):
             CWD, "Datasets", "PneumoniaMNIST", "pneumoniamnist.npz"
         )
         if os.path.exists(task_a_data_abs_path):
-            solution_A = SolutionA(task_a_data_abs_path)
-            solution_A.solve(stages, device)
+            solution_A = SolutionA(task_a_data_abs_path, device)
+            solution_A.solve(stages)
         else:
             raise Exception(
                 f"No dataset for task A: {task_a_data_abs_path}! Please run `make download`."
@@ -94,20 +94,20 @@ def solve(task: str, stages: List[str], device: str):
             CWD, "Datasets", "PathMNIST", "pathmnist.npz"
         )
         if os.path.exists(task_b_data_abs_path):
-            solution_B = SolutionB(task_b_data_abs_path)
-            solution_B.solve(stages, device)
+            solution_B = SolutionB(task_b_data_abs_path, device)
+            solution_B.solve(stages)
         else:
             raise Exception(
                 f"No dataset for task B: {task_b_data_abs_path}! Please run `make download`."
             )
 
-    logger.info("-----------[Tasks finished]----------")
+    logger.info("---------All tasks finished!---------")
 
 
 def main():
     try:
         args = setup_parse()
-        logger.setLevel(args.loglevel)
+        set_log_level(args.loglevel)
 
         if args.action == "info":
             print_info()

@@ -15,18 +15,18 @@ import xgboost as xgb
 
 
 class SolutionA(Solution):
-    def __init__(self, path: str):
-        super().__init__(path)
+    def __init__(self, path: str, device: str):
+        super().__init__(path, device)
         self.task_name = "Task A"
 
     def val(self):
-        logger.info("Cross Validation")
+        super().val()
 
-    def train(self, device: str):
-        logger.info(f"Training using {device}...")
+    def train(self):
+        super().train()
 
     def test(self):
-        logger.info("Testing...")
+        super().test()
 
     # def demo(self, path: str):
     #     """Cost 2s on CPU.

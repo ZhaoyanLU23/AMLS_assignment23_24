@@ -9,32 +9,30 @@ from .logger import logger
 
 
 class Solution:
-    def __init__(self, path: str):
+    def __init__(self, path: str, device: str):
         self.dataset = Dataset(path)
         self.task_name = "Task N"
+        self.device = device
 
-    def solve(self, stages: List[str], device: str):
+    def solve(self, stages: List[str]):
         logger.info("=====================================")
-        logger.info(f"|         Solving {self.task_name} ...        |")
+        logger.info(f"          Solving {self.task_name} ...         ")
         logger.info("=====================================")
 
         if "val" in stages:
             self.val()
         if "train" in stages:
-            self.train(device=device)
+            self.train()
         if "test" in stages:
             self.test()
 
         logger.info(f"----------{self.task_name} finished!-----------")
 
-    @abstractmethod
     def val(self):
-        pass
+        logger.info(f"[{self.task_name}] [Validation] Running on {self.device}...")
 
-    @abstractmethod
-    def train(self, device: str):
-        pass
+    def train(self):
+        logger.info(f"[{self.task_name}] [Training] Running on {self.device}...")
 
-    @abstractmethod
     def test(self):
-        pass
+        logger.info(f"[{self.task_name}] [Testing] Running on {self.device}...")
