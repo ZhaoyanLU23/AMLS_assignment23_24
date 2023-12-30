@@ -26,15 +26,20 @@
 $ tree
 .
 ├── A
+│   ├── README.md
 │   └── solution.py             # Solution for task A
 ├── B
+│   ├── README.md
 │   └── solution.py             # Solution for task B
 ├── Datasets                    # An empty dir for Datasets
 ├── Makefile
 ├── README.md
 ├── environment.yml             # conda environment config
 ├── main.py                     # Entrypoint of this repo
-└── requirements.txt            # python package requirements
+├── requirements.txt            # python package requirements
+└── utils
+    ├── dataset.py
+    └── logger.py
 ```
 
 ## Datasets
@@ -100,16 +105,17 @@ $ pip install -f requirements.txt
 
 ```bash
 $ python main.py --help
-usage: main.py [-h] [-v] {solve,info} ...
+usage: main.py [-h] [-d] [-v] {solve,info} ...
 
 AMLS Final Assignment
 
 positional arguments:
-  {solve,info}  actions provided
+  {solve,info}   actions provided
 
-options:
-  -h, --help    show this help message and exit
-  -v            verbose
+optional arguments:
+  -h, --help     show this help message and exit
+  -d, --debug    Print lots of debugging statements
+  -v, --verbose  Be verbose
 
 # TODO: update help
 $ python main.py solve --help
@@ -136,7 +142,7 @@ $ python main.py info
 * Solve all tasks
 
 ```bash
-$ python main.py solve
+$ python main.py -v solve
 # TODO: only training
 ```
 
@@ -144,7 +150,7 @@ $ python main.py solve
 
 ```bash
 # Solve Task A
-$ python main.py solve --task A
+$ python main.py -v solve --task A
 # TODO: only training
 ```
 
@@ -152,6 +158,6 @@ $ python main.py solve --task A
 
 ```bash
 # Solve Task B
-$ python main.py solve --task B
+$ python main.py -v solve --task B
 # TODO: only training
 ```

@@ -4,7 +4,9 @@
 
 import os
 import sys
+import logging
 
+from utils.logger import logger
 from A.solution import Solution as SolutionA
 from B.solution import Solution as SolutionB
 
@@ -16,7 +18,23 @@ def setup_parse():
 
     description = "AMLS Final Assignment"
     parser = argparse.ArgumentParser(description=description)
-    parser.add_argument("-v", dest="verbose", action="store_true", help="verbose")
+    parser.add_argument(
+        "-d",
+        "--debug",
+        help="Print lots of debugging statements",
+        action="store_const",
+        dest="loglevel",
+        const=logging.DEBUG,
+        default=logging.WARNING,
+    )
+    parser.add_argument(
+        "-v",
+        "--verbose",
+        help="Be verbose",
+        action="store_const",
+        dest="loglevel",
+        const=logging.INFO,
+    )
     parser.set_defaults(whether_output=True)
 
     subparsers = parser.add_subparsers(dest="action", help="actions provided")
@@ -45,7 +63,7 @@ def print_info():
 
 
 def solve(task: str):
-    print("-----------[Tasks running]-----------")
+    logger.info("-----------[Tasks running]-----------")
     if task in ["A", "all"]:
         task_a_data_abs_path = os.path.join(
             CWD, "Datasets", "PneumoniaMNIST", "pneumoniamnist.npz"
@@ -66,19 +84,20 @@ def solve(task: str):
         else:
             raise Exception(f"No dataset for task B: {task_b_data_abs_path}!")
 
-    print("-----------[Tasks finished]----------")
+    logger.info("-----------[Tasks finished]----------")
 
 
 def main():
     try:
         args = setup_parse()
+        logger.setLevel(args.loglevel)
 
         if args.action == "info":
             print_info()
         elif args.action == "solve":
             solve(args.task)
         else:
-            raise Exception(f"Unsupport action: {args.action}")
+            raise Exception(f"Unsupported action: {args.action}")
     except Exception as e:
         print(e)
         sys.exit(1)

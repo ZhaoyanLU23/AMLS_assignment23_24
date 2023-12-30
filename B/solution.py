@@ -1,3 +1,14 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+import os
+import sys
+
+# hack here
+sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
+
+from utils.dataset import Dataset
+from utils.logger import logger
+
 import numpy as np
 import xgboost as xgb
 
@@ -7,15 +18,14 @@ class Solution:
         pass
 
     def solve(self, data_abs_path: str):
-        print("=====================================")
-        print("|         Solving Task B ...        |")
-        print("=====================================")
+        logger.info("=====================================")
+        logger.info("|         Solving Task B ...        |")
+        logger.info("=====================================")
 
         # TODO: Add your solution here
         self.demo(data_abs_path)
 
-        print("----------Task B finished!-----------")
-        print()
+        logger.info("----------Task B finished!-----------")
 
     def demo(self, path: str):
         """Cost one hour on CPU.
@@ -31,66 +41,17 @@ class Solution:
         """
         from sklearn.metrics import confusion_matrix
 
-        X_train, X_test, y_train, y_test = self.read(path)
-        print("Read data finished!")
+        dataset = Dataset(path)
+        logger.info("Read data finished!")
 
         clf = xgb.XGBClassifier()
-        print("Start fitting...")
+        logger.info("Start fitting...")
         # Fit the model, test sets are used for early stopping.
-        clf.fit(X_train, y_train)
-        print("After fitting...")
+        clf.fit(dataset.X_train, dataset.y_train)
+        logger.info("After fitting...")
         # Save model into JSON format.
-        clf.save_model("clf.json")
-        predictions = clf.predict(X_test)
-        actuals = y_test
-        print(confusion_matrix(actuals, predictions))
-        print("Model saved!")
-
-    def read(self, path: str):
-        """
-        train_images (89996, 28, 28, 3)
-        val_images (10004, 28, 28, 3)
-        test_images (7180, 28, 28, 3)
-        train_labels (89996, 1)
-        val_labels (10004, 1)
-        test_labels (7180, 1)
-        """
-
-        data = np.load(path)
-
-        # for k, v in data.items():
-        #     print(k, v.shape)
-
-        X_train = data.get("train_images", np.asarray([]))
-        X_train = self._reshape_to_2_dims(X_train)
-        # print(X_train.shape)
-        # print(np.unique(X_train))
-        y_train = data.get("train_labels", np.asarray([]))
-        # print(y_train.shape)
-        # print(np.unique(y_train))
-
-        X_test = data.get("test_images", np.asarray([]))
-        X_test = self._reshape_to_2_dims(X_test)
-        # print(X_test.shape)
-        # print(np.unique(X_test))
-        y_test = data.get("test_labels", np.asarray([]))
-        # print(y_test.shape)
-        # print(np.unique(y_test))
-
-        result = [
-            X_train,
-            X_test,
-            y_train,
-            y_test,
-        ]
-        return result
-
-    def _reshape_to_2_dims(self, ndarray: np.ndarray) -> np.ndarray:
-        from functools import reduce
-        import operator
-
-        n_samples = ndarray.shape[0]
-        if n_samples > 0:
-            n_features = reduce(operator.mul, ndarray.shape[1:])
-            ndarray = ndarray.reshape((n_samples, n_features))
-        return ndarray
+        # clf.save_model("clf.json")
+        predictions = clf.predict(dataset.X_test)
+        actuals = dataset.y_test
+        logger.info(confusion_matrix(actuals, predictions))
+        logger.info("Model saved!")

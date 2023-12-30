@@ -25,3 +25,5 @@ clean-datasets:
 clean:
 	rm -rf A/__pycache__
 	rm -rf B/__pycache__
+	rm -rf utils/__pycache__
+	rm -rf __pycache__
