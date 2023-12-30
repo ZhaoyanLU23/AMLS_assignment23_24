@@ -8,8 +8,8 @@ import logging
 from typing import List
 
 from utils.logger import logger
-from A.solution import Solution as SolutionA
-from B.solution import Solution as SolutionB
+from A.solution import SolutionA
+from B.solution import SolutionB
 
 CWD = os.getcwd()
 

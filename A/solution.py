@@ -8,57 +8,44 @@ from typing import List
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 
 from utils.logger import logger
-from utils.dataset import Dataset
+from utils.solution import Solution
 
 import numpy as np
 import xgboost as xgb
 
 
-class Solution:
+class SolutionA(Solution):
     def __init__(self, path: str):
-        self.dataset = Dataset(path)
-
-    def solve(self, stages: List[str]):
-        logger.info("=====================================")
-        logger.info("|         Solving Task A ...        |")
-        logger.info("=====================================")
-
-        if "val" in stages:
-            self.val()
-        if "train" in stages:
-            self.train()
-        if "test" in stages:
-            self.test()
-
-        logger.info("----------Task A finished!-----------")
+        super().__init__(path)
+        self.task_name = "Task A"
 
     def val(self):
-        pass
+        logger.info("Cross Validation")
 
-    def train(self):
-        pass
+    def train(self, device: str):
+        logger.info(f"Training using {device}...")
 
     def test(self):
-        pass
+        logger.info("Testing...")
 
-    def demo(self, path: str):
-        """Cost 2s on CPU.
-        [[144  90]
-        [  7 383]]
-        """
-        from sklearn.metrics import confusion_matrix
+    # def demo(self, path: str):
+    #     """Cost 2s on CPU.
+    #     [[144  90]
+    #     [  7 383]]
+    #     """
+    #     from sklearn.metrics import confusion_matrix
 
-        dataset = Dataset(path)
-        logger.info("Read data finished!")
+    #     dataset = Dataset(path)
+    #     logger.info("Read data finished!")
 
-        clf = xgb.XGBClassifier(verbosity=2, device="cuda", n_jobs=3)
-        logger.info("Start fitting...")
-        # Fit the model, test sets are used for early stopping.
-        clf.fit(dataset.X_train, dataset.y_train)
-        logger.info("After fitting...")
-        # Save model into JSON format.
-        # clf.save_model("clf.json")
-        predictions = clf.predict(dataset.X_test)
-        actuals = dataset.y_test
-        logger.info(confusion_matrix(actuals, predictions))
-        logger.info("Model saved!")
+    #     clf = xgb.XGBClassifier(verbosity=2, device="cuda", n_jobs=3)
+    #     logger.info("Start fitting...")
+    #     # Fit the model, test sets are used for early stopping.
+    #     clf.fit(dataset.X_train, dataset.y_train)
+    #     logger.info("After fitting...")
+    #     # Save model into JSON format.
+    #     # clf.save_model("clf.json")
+    #     predictions = clf.predict(dataset.X_test)
+    #     actuals = dataset.y_test
+    #     logger.info(confusion_matrix(actuals, predictions))
+    #     logger.info("Model saved!")
