@@ -73,6 +73,8 @@ $ cat requirements.txt
 black
 # read and process datasets
 numpy
+# xgboost
+xgboost
 ```
 
 ## Usage
@@ -88,7 +90,7 @@ $ make create-env
 $ conda activate amls-final-zhaoyanlu
 ```
 
-* (optional) You can use `pip` instead:
+* Or you can use `pip` instead:
 
 ```bash
 $ pip install -f requirements.txt

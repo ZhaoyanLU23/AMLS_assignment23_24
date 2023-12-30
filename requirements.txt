@@ -2,3 +2,5 @@
 black
 # read and process datasets
 numpy
+# xgboost
+xgboost
