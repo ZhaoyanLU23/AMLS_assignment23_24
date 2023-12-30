@@ -78,9 +78,14 @@ $ cat requirements.txt
 black
 # read and process datasets
 numpy
-# xgboost
+# Models
+scikit-learn
+# GPU version
+# If you want to use CPU only, change to py-xgboost-cpu
 xgboost
 ```
+
+**NOTE**: `xgboost` will use GPU. If you want to use CPU only, change to `py-xgboost-cpu`
 
 ## Usage
 
