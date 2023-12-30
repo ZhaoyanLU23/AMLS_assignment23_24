@@ -34,3 +34,6 @@ TASK_B_CONFIG_PATH = os.path.join(
     TASK_B_DIR,
     CONFIG_FILENAME,
 )
+
+# N splits for KFold
+N_KFOLD = 10

@@ -2,10 +2,19 @@
 # -*- coding: utf-8 -*-
 import json
 import os
+import sys
 from typing import List
 
 from .dataset import Dataset
 from .logger import logger
+
+# hack here
+sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
+
+from constants import N_KFOLD
+
+import xgboost as xgb
+from sklearn.model_selection import StratifiedKFold, GridSearchCV
 
 
 class Solution:
@@ -35,8 +44,20 @@ class Solution:
     def val(self):
         logger.info(f"[{self.task_name}] [Validation] Running on {self.device}...")
         val_config = self.config.get("validation", {})
-        params_config = val_config.get("params", {})
-        logger.info(f"Searching xgboost params: {params_config}...")
+        param_grid = val_config.get("param_grid", {})
+        logger.info(f"Searching xgboost params: {param_grid}...")
+        # We set n_jobs to None here for cross validation using scikit-learn
+        # See: https://xgboost.readthedocs.io/en/stable/python/sklearn_estimator.html#number-of-parallel-threads
+        base_estimator = xgb.XGBClassifier(device=self.device, n_jobs=None)
+        # We use StratifiedKFold here for the imbalance in the distribution of the target classes
+        skf = StratifiedKFold(n_splits=N_KFOLD)
+        sh = GridSearchCV(
+            base_estimator,
+            param_grid,
+            cv=skf,
+            n_jobs=1,
+        ).fit(self.dataset.X_train, self.dataset.y_train)
+        logger.info(sh.best_estimator_)
 
     def train(self):
         logger.info(f"[{self.task_name}] [Training] Running on {self.device}...")
