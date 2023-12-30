@@ -9,6 +9,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 
 from utils.logger import logger
 from utils.solution import Solution
+from constants import TASK_A_DIR
 
 import numpy as np
 import xgboost as xgb
@@ -20,6 +21,7 @@ class SolutionA(Solution):
             dataset_path=dataset_path, device=device, config_path=config_path
         )
         self.task_name = "Task A"
+        self.task_dir = TASK_A_DIR
 
     def val(self):
         super().val()

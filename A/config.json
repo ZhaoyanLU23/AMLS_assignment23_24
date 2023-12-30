@@ -1,4 +1,5 @@
 {
+    "random_state": 20232024,
     "validation": {
         "param_grid": {
             "learning_rate": [

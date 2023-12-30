@@ -35,5 +35,8 @@ TASK_B_CONFIG_PATH = os.path.join(
     CONFIG_FILENAME,
 )
 
+# Random state
+DEFAULT_RANDOM_STATE = 20232024
+
 # N splits for KFold
 N_KFOLD = 10
