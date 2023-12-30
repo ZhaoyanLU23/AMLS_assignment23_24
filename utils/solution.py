@@ -3,6 +3,7 @@
 import json
 import os
 import sys
+from datetime import datetime
 from typing import List
 
 from .dataset import Dataset
@@ -14,6 +15,8 @@ sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 from constants import N_KFOLD
 
 import xgboost as xgb
+import pandas as pd
+from pandas import DataFrame
 from sklearn.model_selection import StratifiedKFold, GridSearchCV
 
 
@@ -58,6 +61,12 @@ class Solution:
             n_jobs=1,
         ).fit(self.dataset.X_train, self.dataset.y_train)
         logger.info(sh.best_estimator_)
+        logger.info(sh.best_score_)
+        logger.info(sh.best_params_)
+        df = DataFrame(sh.cv_results_)
+        # Get current date and time
+        datetime_str = datetime.now().strftime("%Y%m%d%H%M%S")
+        df.to_csv(f"{datetime_str}.csv")
 
     def train(self):
         logger.info(f"[{self.task_name}] [Training] Running on {self.device}...")
