@@ -2,10 +2,13 @@
 # -*- coding: utf-8 -*-
 """Entrypoint of this assignment."""
 
+import os
 import sys
 
 from A.solution import Solution as SolutionA
 from B.solution import Solution as SolutionB
+
+CWD = os.getcwd()
 
 
 def setup_parse():
@@ -44,12 +47,25 @@ def print_info():
 def solve(task: str):
     print("-----------[Tasks running]-----------")
     if task in ["A", "all"]:
-        solution_A = SolutionA()
-        solution_A.solve()
+        task_a_data_abs_path = os.path.join(
+            CWD, "Datasets", "PneumoniaMNIST", "pneumoniamnist.npz"
+        )
+        if os.path.exists(task_a_data_abs_path):
+            solution_A = SolutionA()
+            solution_A.solve(task_a_data_abs_path)
+        else:
+            raise Exception(f"No dataset for task A: {task_a_data_abs_path}!")
 
     if task in ["B", "all"]:
-        solution_B = SolutionB()
-        solution_B.solve()
+        task_b_data_abs_path = os.path.join(
+            CWD, "Datasets", "PathMNIST", "pathmnist.npz"
+        )
+        if os.path.exists(task_b_data_abs_path):
+            solution_B = SolutionB()
+            solution_B.solve(task_b_data_abs_path)
+        else:
+            raise Exception(f"No dataset for task B: {task_b_data_abs_path}!")
+
     print("-----------[Tasks finished]----------")
 
 
