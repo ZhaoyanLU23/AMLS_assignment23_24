@@ -12,7 +12,7 @@ from .logger import logger
 # hack here
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 
-from constants import N_KFOLD, RESULT_DIR, DEFAULT_RANDOM_STATE
+from constants import N_KFOLD, DEFAULT_RANDOM_STATE
 
 import xgboost as xgb
 import pandas as pd
@@ -53,11 +53,12 @@ class Solution:
         logger.info(f"Searching xgboost params: {param_grid}...")
         # We set n_jobs to None here for cross validation using scikit-learn
         # See: https://xgboost.readthedocs.io/en/stable/python/sklearn_estimator.html#number-of-parallel-threads
+        # And https://xgboost.readthedocs.io/en/stable/tutorials/param_tuning.html#reducing-memory-usage
         base_estimator = xgb.XGBClassifier(
             device=self.device, n_jobs=None, random_state=random_state
         )
         # We use StratifiedKFold here for the imbalance in the distribution of the target classes
-        skf = StratifiedKFold(n_splits=N_KFOLD, random_state=random_state)
+        skf = StratifiedKFold(n_splits=N_KFOLD)
         sh = GridSearchCV(
             base_estimator,
             param_grid,
