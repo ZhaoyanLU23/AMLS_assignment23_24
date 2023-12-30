@@ -1,10 +1,11 @@
 name: amls-final-zhaoyanlu
 channels:
   - defaults
-  - conda-forge
 dependencies:
   - python=3.9
-  - xgboost
+  - scikit-learn
   - black
   - numpy
-prefix: /Users/luzhaoyan/workspace/miniconda3/envs/amls-final-zhaoyanlu
+  - py-xgboost-gpu
+  - pandas
+prefix: /home/uceezl8/.conda/envs/amls-final-zhaoyanlu

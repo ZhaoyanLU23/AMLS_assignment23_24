@@ -5,6 +5,7 @@ numpy
 # Models
 scikit-learn
 # GPU version
-# If you want to use CPU only, change to py-xgboost-cpu
-xgboost
-
+# If you want to use CPU only, use py-xgboost-cpu
+py-xgboost-gpu
+# save results
+pandas
