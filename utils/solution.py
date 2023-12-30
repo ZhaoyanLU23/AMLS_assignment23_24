@@ -12,7 +12,7 @@ from .logger import logger
 # hack here
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 
-from constants import N_KFOLD
+from constants import N_KFOLD, TASK_A_DIR
 
 import xgboost as xgb
 import pandas as pd
@@ -66,7 +66,9 @@ class Solution:
         df = DataFrame(sh.cv_results_)
         # Get current date and time
         datetime_str = datetime.now().strftime("%Y%m%d%H%M%S")
-        df.to_csv(f"{datetime_str}.csv")
+        cv_result_filename = f'{datetime_str}_{self.task_name.lower().replace(" ", "_")}_cross_validation.csv'
+        cv_result_path = os.path.join(TASK_A_DIR, cv_result_filename)
+        df.to_csv(cv_result_path)
 
     def train(self):
         logger.info(f"[{self.task_name}] [Training] Running on {self.device}...")
