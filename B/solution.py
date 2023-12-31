@@ -31,31 +31,26 @@ class SolutionB(Solution):
     def test(self):
         super().test()
 
-    # def demo(self, path: str):
-    #     """Cost one hour on CPU.
-    #     [[1004    1    5    0   32  284    7    0    5]
-    #     [   0  847    0    0    0    0    0    0    0]
-    #     [   0    0  121    7    0  152    1   52    6]
-    #     [   0    1   10  365  118    2   79    1   58]
-    #     [  36   83    1   15  852    1   25    2   20]
-    #     [   0    0  161    1    0  281   49   84   16]
-    #     [   4    0    7   16   25   12  475    0  202]
-    #     [   0    0  109    0    6   65   14  162   65]
-    #     [   0    0   28   30   14   10  154    4  993]]
-    #     """
-    #     from sklearn.metrics import confusion_matrix
 
-    #     dataset = Dataset(path)
-    #     logger.info("Read data finished!")
+# 12/31 01:27:44 [INFO]: Searching xgboost params: {'learning_rate': [0.2], 'max_depth': [5], 'min_child_weight': [1], 'gamma': [0], 'subsample': [0.6], 'colsample_bytree': [0.6]}...
+# /home/uceezl8/.conda/envs/amls-final-zhaoyanlu/lib/python3.9/site-packages/xgboost/core.py:160: UserWarning: [01:27:59] WARNING: /home/conda/feedstock_root/build_artifacts/xgboost-split_1703076482591/work/src/common/error_msg.cc:58: Falling back to prediction using DMatrix due to mismatched devices. This might lead to higher memory usage and slower performance. XGBoost is running on: cuda:1, while the input data is on: cpu.
+# Potential solutions:
+# - Use a data structure that matches the device ordinal in the booster.
+# - Set the device for booster before call to inplace_predict.
 
-    #     clf = xgb.XGBClassifier(verbosity=2, device="cuda", n_jobs=3)
-    #     logger.info("Start fitting...")
-    #     # Fit the model, test sets are used for early stopping.
-    #     clf.fit(dataset.X_train, dataset.y_train)
-    #     logger.info("After fitting...")
-    #     # Save model into JSON format.
-    #     # clf.save_model("clf.json")
-    #     predictions = clf.predict(dataset.X_test)
-    #     actuals = dataset.y_test
-    #     logger.info(confusion_matrix(actuals, predictions))
-    #     logger.info("Model saved!")
+# This warning will only be shown once.
+
+#   warnings.warn(smsg, UserWarning)
+# 12/31 01:29:16 [INFO]: XGBClassifier(base_score=None, booster=None, callbacks=None,
+#               colsample_bylevel=None, colsample_bynode=None,
+#               colsample_bytree=0.6, device='cuda:1', early_stopping_rounds=None,
+#               enable_categorical=False, eval_metric=None, feature_types=None,
+#               gamma=0, grow_policy=None, importance_type=None,
+#               interaction_constraints=None, learning_rate=0.2, max_bin=None,
+#               max_cat_threshold=None, max_cat_to_onehot=None,
+#               max_delta_step=None, max_depth=5, max_leaves=None,
+#               min_child_weight=1, missing=nan, monotone_constraints=None,
+#               multi_strategy=None, n_estimators=None, n_jobs=None,
+#               num_parallel_tree=None, objective='multi:softprob', ...)
+# 12/31 01:29:16 [INFO]: 0.75185
+# 12/31 01:29:16 [INFO]: {'colsample_bytree': 0.6, 'gamma': 0, 'learning_rate': 0.2, 'max_depth': 5, 'min_child_weight': 1, 'subsample': 0.6}

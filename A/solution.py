@@ -32,24 +32,17 @@ class SolutionA(Solution):
     def test(self):
         super().test()
 
-    # def demo(self, path: str):
-    #     """Cost 2s on CPU.
-    #     [[144  90]
-    #     [  7 383]]
-    #     """
-    #     from sklearn.metrics import confusion_matrix
 
-    #     dataset = Dataset(path)
-    #     logger.info("Read data finished!")
-
-    #     clf = xgb.XGBClassifier(verbosity=2, device="cuda", n_jobs=3)
-    #     logger.info("Start fitting...")
-    #     # Fit the model, test sets are used for early stopping.
-    #     clf.fit(dataset.X_train, dataset.y_train)
-    #     logger.info("After fitting...")
-    #     # Save model into JSON format.
-    #     # clf.save_model("clf.json")
-    #     predictions = clf.predict(dataset.X_test)
-    #     actuals = dataset.y_test
-    #     logger.info(confusion_matrix(actuals, predictions))
-    #     logger.info("Model saved!")
+# 12/31 01:26:58 [INFO]: XGBClassifier(base_score=None, booster=None, callbacks=None,
+#               colsample_bylevel=None, colsample_bynode=None,
+#               colsample_bytree=0.6, device='cuda:1', early_stopping_rounds=None,
+#               enable_categorical=False, eval_metric=None, feature_types=None,
+#               gamma=0, grow_policy=None, importance_type=None,
+#               interaction_constraints=None, learning_rate=0.2, max_bin=None,
+#               max_cat_threshold=None, max_cat_to_onehot=None,
+#               max_delta_step=None, max_depth=5, max_leaves=None,
+#               min_child_weight=1, missing=nan, monotone_constraints=None,
+#               multi_strategy=None, n_estimators=None, n_jobs=None,
+#               num_parallel_tree=None, random_state=20232024, ...)
+# 12/31 01:26:58 [INFO]: 0.9640666860245334
+# 12/31 01:26:58 [INFO]: {'colsample_bytree': 0.6, 'gamma': 0, 'learning_rate': 0.2, 'max_depth': 5, 'min_child_weight': 1, 'subsample': 0.6}

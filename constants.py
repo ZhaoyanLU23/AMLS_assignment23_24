@@ -39,4 +39,4 @@ TASK_B_CONFIG_PATH = os.path.join(
 DEFAULT_RANDOM_STATE = 20232024
 
 # N splits for KFold
-N_KFOLD = 10
+N_KFOLD = 5

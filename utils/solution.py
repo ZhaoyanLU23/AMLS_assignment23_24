@@ -15,7 +15,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 from constants import N_KFOLD, DEFAULT_RANDOM_STATE
 
 import xgboost as xgb
-import pandas as pd
+import cupy as cp
 from pandas import DataFrame
 from sklearn.model_selection import StratifiedKFold, GridSearchCV
 
@@ -51,6 +51,7 @@ class Solution:
         param_grid = val_config.get("param_grid", {})
         random_state = self.config.get("random_state", DEFAULT_RANDOM_STATE)
         logger.info(f"Searching xgboost params: {param_grid}...")
+
         # We set n_jobs to None here for cross validation using scikit-learn
         # See: https://xgboost.readthedocs.io/en/stable/python/sklearn_estimator.html#number-of-parallel-threads
         # And https://xgboost.readthedocs.io/en/stable/tutorials/param_tuning.html#reducing-memory-usage
@@ -59,12 +60,30 @@ class Solution:
         )
         # We use StratifiedKFold here for the imbalance in the distribution of the target classes
         skf = StratifiedKFold(n_splits=N_KFOLD)
+
+        X_train = self.dataset.X_train
+        y_train = self.dataset.y_train
+        # Copy dataset to GPU if applicable
+        # if self.device == "cpu":
+        #     X_train = self.dataset.X_train
+        #     y_train = self.dataset.y_train
+        # else:
+        #     if ":" in self.device:
+        #         device_no = self.device.split(":")[1]
+        #     else:
+        #         device_no = 0
+        #     logger.info(f"Device No: {device_no}")
+        #     cp.cuda.Device(device_no).use()
+        #     X_train = cp.array(self.dataset.X_train)
+        #     y_train = cp.array(self.dataset.y_train)
+        #     logger.info(f"Dataset copied: {self.device}")
+
         sh = GridSearchCV(
             base_estimator,
             param_grid,
             cv=skf,
             n_jobs=1,
-        ).fit(self.dataset.X_train, self.dataset.y_train)
+        ).fit(X_train, y_train)
         logger.info(sh.best_estimator_)
         logger.info(sh.best_score_)
         logger.info(sh.best_params_)
