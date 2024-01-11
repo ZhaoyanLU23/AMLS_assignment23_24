@@ -74,6 +74,12 @@ def setup_parse():
         default="True",
         help="Save results or not, available options: True or False; default: True",
     )
+    solve_subparser.add_argument(
+        "--early_stopping_rounds",
+        action="store",
+        default="3",
+        help="Used to prevent overfitting; require >= 0, default: 3",
+    )
 
     args, _ = parser.parse_known_args()
     return args
@@ -87,7 +93,13 @@ def print_info():
     print("-------------------------------------")
 
 
-def solve(task: str, stages: List[str], device: str, save: bool = True):
+def solve(
+    task: str,
+    stages: List[str],
+    device: str,
+    early_stopping_rounds: int,
+    save: bool = True,
+):
     logger.info("-----------[Tasks running]-----------")
     if task in ["A", "all"]:
         if os.path.exists(TASK_A_DATA_ABS_PATH):
@@ -96,6 +108,7 @@ def solve(task: str, stages: List[str], device: str, save: bool = True):
                 device=device,
                 config_path=TASK_A_CONFIG_PATH,
                 save_result=save,
+                early_stopping_rounds=early_stopping_rounds,
             )
             solution_A.solve(stages)
         else:
@@ -110,6 +123,7 @@ def solve(task: str, stages: List[str], device: str, save: bool = True):
                 device=device,
                 config_path=TASK_B_CONFIG_PATH,
                 save_result=save,
+                early_stopping_rounds=early_stopping_rounds,
             )
             solution_B.solve(stages)
         else:
@@ -130,7 +144,12 @@ def main():
         elif args.action == "solve":
             stages = args.stages.split(",")
             save_result = args.save.lower() == "true"
-            solve(args.task, stages, args.device, save_result)
+            assert (
+                args.early_stopping_rounds.isdigit()
+                and int(args.early_stopping_rounds) >= 0
+            ), f"ERROR: early_stopping_rounds: '{args.early_stopping_rounds}' needs to be greater than or equal to 0."
+            early_stopping_rounds = int(args.early_stopping_rounds)
+            solve(args.task, stages, args.device, early_stopping_rounds, save_result)
         else:
             raise Exception(f"Unsupported action: {args.action}")
     except Exception as e:

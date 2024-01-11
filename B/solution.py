@@ -16,13 +16,19 @@ import xgboost as xgb
 
 class SolutionB(Solution):
     def __init__(
-        self, dataset_path: str, device: str, config_path: str, save_result: bool = True
+        self,
+        dataset_path: str,
+        device: str,
+        config_path: str,
+        save_result: bool = True,
+        early_stopping_rounds: int = True,
     ):
         super().__init__(
             dataset_path=dataset_path,
             device=device,
             config_path=config_path,
             save_result=save_result,
+            early_stopping_rounds=early_stopping_rounds,
         )
         self.task_name = "Task B"
         self.task_dir = TASK_B_DIR
@@ -57,6 +63,7 @@ class SolutionB(Solution):
         super().val()
 
     def train(self):
+        # With early_stopping_rounds = 0
         # 01/11 04:34:58 [INFO]: training score: 0.998
         # 01/11 04:35:00 [INFO]: confusion matrix for training:
         # [[10406     1     0     0     0     0     0     0     0]
@@ -84,9 +91,39 @@ class SolutionB(Solution):
         #                             accuracy                           1.00    100000
         #                         macro avg       1.00      1.00      1.00    100000
         #                         weighted avg       1.00      1.00      1.00    100000
+
+        # With early_stopping_rounds = 3
+        # 01/11 05:27:24 [INFO]: training score: 0.97633
+        # 01/11 05:27:26 [INFO]: confusion matrix for training:
+        # [[10371     0     1     0    25     2     8     0     0]
+        #  [   43 10492     0     0    13     0     2    10     6]
+        #  [    0     3 11007    19    25   116    32   161   149]
+        #  [    0     0     4 11468    13     1    32     8    31]
+        #  [   14     2    23    12  8632    15   110    55    33]
+        #  [    8     0    95     0    16 13243     7   157    10]
+        #  [    3     0     4    23   133    18  8362    13   207]
+        #  [    0     0   196     2    42   146    34  9979    47]
+        #  [    0     1    25    22    31    30    60    69 14079]]
+        # 01/11 05:27:26 [INFO]: classification report for training:
+        #                                       precision    recall  f1-score   support
+
+        #                              adipose       0.99      1.00      1.00     10407
+        #                           background       1.00      0.99      1.00     10566
+        #                               debris       0.97      0.96      0.96     11512
+        #                          lymphocytes       0.99      0.99      0.99     11557
+        #                                mucus       0.97      0.97      0.97      8896
+        #                        smooth muscle       0.98      0.98      0.98     13536
+        #                  normal colon mucosa       0.97      0.95      0.96      8763
+        #             cancer-associated stroma       0.95      0.96      0.96     10446
+        # colorectal adenocarcinoma epithelium       0.97      0.98      0.98     14317
+
+        #                             accuracy                           0.98    100000
+        #                            macro avg       0.98      0.98      0.98    100000
+        #                         weighted avg       0.98      0.98      0.98    100000
         super().train()
 
     def test(self):
+        # With early_stopping_rounds = 0
         # 01/11 04:33:41 [INFO]: testing score: 0.7034818941504178
         # 01/11 04:33:41 [INFO]: confusion matrix for testing:
         # [[1012    0    5    0   30  286    2    0    3]
@@ -114,4 +151,33 @@ class SolutionB(Solution):
         #                             accuracy                           0.70      7180
         #                            macro avg       0.66      0.64      0.64      7180
         #                         weighted avg       0.73      0.70      0.71      7180
+
+        # With early_stopping_rounds = 3
+        # 01/11 05:24:42 [INFO]: testing score: 0.7013927576601672
+        # 01/11 05:24:42 [INFO]: confusion matrix for testing:
+        # [[1016    0    5    0   20  286    5    0    6]
+        # [   0  847    0    0    0    0    0    0    0]
+        # [   0    0  119    8    0  156    1   51    4]
+        # [   0    0    9  317  177    3   55    0   73]
+        # [  47   93    1   43  804    2   26    2   17]
+        # [   0    0  151    2    1  281   52   90   15]
+        # [  10    0    6   27   30   15  469    1  183]
+        # [   0    0   97    1   10   64   15  159   75]
+        # [   0    0   42   23   12   14  117    1 1024]]
+        # 01/11 05:24:42 [INFO]: classification report for testing:
+        #                                     precision    recall  f1-score   support
+
+        #                             adipose       0.95      0.76      0.84      1338
+        #                         background       0.90      1.00      0.95       847
+        #                             debris       0.28      0.35      0.31       339
+        #                         lymphocytes       0.75      0.50      0.60       634
+        #                             mucus       0.76      0.78      0.77      1035
+        #                     smooth muscle       0.34      0.47      0.40       592
+        #                 normal colon mucosa       0.63      0.63      0.63       741
+        #             cancer-associated stroma       0.52      0.38      0.44       421
+        # colorectal adenocarcinoma epithelium       0.73      0.83      0.78      1233
+
+        #                             accuracy                           0.70      7180
+        #                         macro avg       0.65      0.63      0.64      7180
+        #                         weighted avg       0.72      0.70      0.71      7180
         super().test()

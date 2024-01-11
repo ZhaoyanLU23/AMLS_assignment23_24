@@ -21,7 +21,12 @@ from sklearn.metrics import confusion_matrix, classification_report
 
 class Solution:
     def __init__(
-        self, dataset_path: str, device: str, config_path: str, save_result: bool = True
+        self,
+        dataset_path: str,
+        device: str,
+        config_path: str,
+        save_result: bool = True,
+        early_stopping_rounds: int = 3,
     ):
         self.dataset = Dataset(dataset_path)
         self.task_name = "Task N"
@@ -31,6 +36,9 @@ class Solution:
         self.save_result = save_result
         self.classifier = None
         self.target_names = None
+        self.early_stopping_rounds = (
+            None if early_stopping_rounds == 0 else early_stopping_rounds
+        )
         if os.path.exists(config_path):
             with open(config_path, "r") as f:
                 self.config = json.load(f)
@@ -100,19 +108,33 @@ class Solution:
         logger.info(f"[{self.task_name}] [Training] Running on {self.device}...")
         training_config: dict = self.config.get("training", {})
         random_state: int = self.config.get("random_state", DEFAULT_RANDOM_STATE)
+
         self.classifier = xgb.XGBClassifier(
-            device=self.device, random_state=random_state, **training_config
+            device=self.device,
+            random_state=random_state,
+            early_stopping_rounds=self.early_stopping_rounds,
+            **training_config,
         )
-        self.classifier.fit(self.dataset.X_train, self.dataset.y_train)
+        if self.early_stopping_rounds > 0:
+            self.classifier.fit(
+                self.dataset.old_X_train,
+                self.dataset.old_y_train,
+                eval_set=[(self.dataset.X_val, self.dataset.y_val)],
+            )
+        else:
+            self.classifier.fit(self.dataset.X_train, self.dataset.y_train)
+
         if self.save_result:
             # Save model into JSON format.
             self.classifier.save_model(self.training_model_path)
+
         train_score = self.classifier.score(self.dataset.X_train, self.dataset.y_train)
         logger.info(f"training score: {train_score}")
 
         y_pred = self.classifier.predict(self.dataset.X_train)
         mat = confusion_matrix(self.dataset.y_train, y_pred)
         logger.info(f"confusion matrix for training: \n{mat}")
+
         report = classification_report(
             self.dataset.y_train, y_pred, target_names=self.target_names
         )
@@ -120,6 +142,7 @@ class Solution:
 
     def test(self):
         logger.info(f"[{self.task_name}] [Testing] Running on {self.device}...")
+
         if not self.classifier:
             logger.debug(f"Training stage skipped!")
             if os.path.exists(self.training_model_path):
@@ -132,12 +155,14 @@ class Solution:
         assert (
             self.classifier is not None
         ), f"ERROR: No model exists! The model may be saved to {self.training_model_path}. Please use `--stages train` to train a model so that you can run testing."
+
         test_score = self.classifier.score(self.dataset.X_test, self.dataset.y_test)
         logger.info(f"testing score: {test_score}")
 
         y_pred = self.classifier.predict(self.dataset.X_test)
         mat = confusion_matrix(self.dataset.y_test, y_pred)
         logger.info(f"confusion matrix for testing: \n{mat}")
+
         report = classification_report(
             self.dataset.y_test, y_pred, target_names=self.target_names
         )
