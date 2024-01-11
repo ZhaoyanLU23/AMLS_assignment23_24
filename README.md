@@ -132,22 +132,21 @@ optional arguments:
 
 # options for the solve action
 $ python main.py solve --help
-usage: main.py solve [-h] [--task TASK] [--stages STAGES]
-                     [--device DEVICE] [--save SAVE]
+usage: main.py solve [-h] [--task TASK] [--stages STAGES] [--device DEVICE]
+                     [--save SAVE]
                      [--early_stopping_rounds EARLY_STOPPING_ROUNDS]
 
 optional arguments:
   -h, --help            show this help message and exit
   --task TASK           task to solve: A, B, or all; default: all
-  --stages STAGES       task stages: val, train, test, or all;
-                        default: val,train,test
-  --device DEVICE       Device ordinal for xgboost, available options:
-                        cpu, cuda, and gpu; default: cuda
-  --save SAVE           Save results or not, available options: True
-                        or False; default: True
+  --stages STAGES       task stages: val, train, test, or all; default:
+                        train,test
+  --device DEVICE       Device ordinal for xgboost, available options: cpu,
+                        cuda, and gpu; default: cuda
+  --save SAVE           Save results or not, available options: True or False;
+                        default: True
   --early_stopping_rounds EARLY_STOPPING_ROUNDS
-                        Used to prevent overfitting; require >= 0,
-                        default: 3
+                        Used to prevent overfitting; require >= 0, default: 3
 ```
 
 * Show info
@@ -168,6 +167,9 @@ $ python main.py info
 ```bash
 # Run all stages for all tasks
 $ python main.py -v solve
+# cross validation
+# Notice: it will cost a long time to do cross validtion
+$ python main.py -v solve --stages val
 # only training
 $ python main.py -v solve --stages train
 # training and testing
@@ -179,6 +181,9 @@ $ python main.py -v solve --stages train,test
 ```bash
 # Solve Task A
 $ python main.py -v solve --task A
+# cross validation
+# Notice: it will cost a long time to do cross validtion
+$ python main.py -v solve --task A --stages val
 # only training
 $ python main.py -v solve --task A --stages train
 # training and testing
@@ -190,8 +195,11 @@ $ python main.py -v solve --task A --stages train,test
 ```bash
 # Solve Task B
 $ python main.py -v solve --task B
+# cross validation
+# Notice: it will cost a long time to do cross validtion
+$ python main.py -v solve --task B --stages val
 # only training
-$ python main.py -v solve --task A --stages train
+$ python main.py -v solve --task B --stages train
 # training and testing
 $ python main.py -v solve --task B --stages train,test
 ```

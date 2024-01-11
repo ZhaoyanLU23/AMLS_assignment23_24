@@ -59,8 +59,8 @@ def setup_parse():
     solve_subparser.add_argument(
         "--stages",
         action="store",
-        default="val,train,test",
-        help="task stages: val, train, test, or all; default: val,train,test",
+        default="train,test",
+        help="task stages: val, train, test, or all; default: train,test",
     )
     solve_subparser.add_argument(
         "--device",
