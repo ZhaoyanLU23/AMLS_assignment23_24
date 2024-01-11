@@ -127,15 +127,17 @@ optional arguments:
 # TODO: update help
 $ python main.py solve --help
 usage: main.py solve [-h] [--task TASK] [--stages STAGES]
-                     [--device DEVICE]
+                     [--device DEVICE] [--save SAVE]
 
 optional arguments:
   -h, --help       show this help message and exit
   --task TASK      task to solve: A, B, or all; default: all
   --stages STAGES  task stages: val, train, test, or all; default:
                    val,train,test
-  --device DEVICE  Device ordinal for xgboost, available options:
-                   cpu, cuda, and gpu; default: cuda
+  --device DEVICE  Device ordinal for xgboost, available options: cpu,
+                   cuda, and gpu; default: cuda
+  --save SAVE      Save results or not, available options: True or
+                   False; default: True
 ```
 
 * Show info

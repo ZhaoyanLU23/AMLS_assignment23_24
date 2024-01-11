@@ -15,17 +15,19 @@ sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 from constants import N_KFOLD, DEFAULT_RANDOM_STATE
 
 import xgboost as xgb
-from pandas import DataFrame
 from sklearn.model_selection import StratifiedKFold, GridSearchCV
 
 
 class Solution:
-    def __init__(self, dataset_path: str, device: str, config_path: str):
+    def __init__(
+        self, dataset_path: str, device: str, config_path: str, save_result: bool = True
+    ):
         self.dataset = Dataset(dataset_path)
         self.task_name = "Task N"
         self.device = device
         self.task_dir = ""
         self.config = {}
+        self.save_result = save_result
         if os.path.exists(config_path):
             with open(config_path, "r") as f:
                 self.config = json.load(f)
@@ -46,9 +48,9 @@ class Solution:
 
     def val(self):
         logger.info(f"[{self.task_name}] [Validation] Running on {self.device}...")
-        val_config = self.config.get("validation", {})
-        param_grid = val_config.get("param_grid", {})
-        random_state = self.config.get("random_state", DEFAULT_RANDOM_STATE)
+        val_config: dict = self.config.get("validation", {})
+        param_grid: dict = val_config.get("param_grid", {})
+        random_state: int = self.config.get("random_state", DEFAULT_RANDOM_STATE)
         logger.info(f"Searching xgboost params: {param_grid}...")
 
         # We set n_jobs to None here for cross validation using scikit-learn
@@ -86,12 +88,16 @@ class Solution:
         logger.info(sh.best_estimator_)
         logger.info(sh.best_score_)
         logger.info(sh.best_params_)
-        df = DataFrame(sh.cv_results_)
-        # Get current date and time
-        datetime_str = datetime.now().strftime("%Y%m%d%H%M%S")
-        cv_result_filename = f'{datetime_str}_{self.task_name.lower().replace(" ", "_")}_cross_validation.csv'
-        cv_result_path = os.path.join(self.task_dir, cv_result_filename)
-        df.to_csv(cv_result_path)
+
+        if self.save_result:
+            from pandas import DataFrame
+
+            df = DataFrame(sh.cv_results_)
+            # Get current date and time
+            datetime_str = datetime.now().strftime("%Y%m%d%H%M%S")
+            cv_result_filename = f'{datetime_str}_{self.task_name.lower().replace(" ", "_")}_cross_validation.csv'
+            cv_result_path = os.path.join(self.task_dir, cv_result_filename)
+            df.to_csv(cv_result_path)
 
     def train(self):
         logger.info(f"[{self.task_name}] [Training] Running on {self.device}...")

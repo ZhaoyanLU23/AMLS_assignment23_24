@@ -16,9 +16,14 @@ import xgboost as xgb
 
 
 class SolutionA(Solution):
-    def __init__(self, dataset_path: str, device: str, config_path: str):
+    def __init__(
+        self, dataset_path: str, device: str, config_path: str, save_result: bool = True
+    ):
         super().__init__(
-            dataset_path=dataset_path, device=device, config_path=config_path
+            dataset_path=dataset_path,
+            device=device,
+            config_path=config_path,
+            save_result=save_result,
         )
         self.task_name = "Task A"
         self.task_dir = TASK_A_DIR

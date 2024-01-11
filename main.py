@@ -68,6 +68,12 @@ def setup_parse():
         default="cuda",
         help="Device ordinal for xgboost, available options: cpu, cuda, and gpu; default: cuda",
     )
+    solve_subparser.add_argument(
+        "--save",
+        action="store",
+        default="True",
+        help="Save results or not, available options: True or False; default: True",
+    )
 
     args, _ = parser.parse_known_args()
     return args
@@ -81,7 +87,7 @@ def print_info():
     print("-------------------------------------")
 
 
-def solve(task: str, stages: List[str], device: str):
+def solve(task: str, stages: List[str], device: str, save: bool = True):
     logger.info("-----------[Tasks running]-----------")
     if task in ["A", "all"]:
         if os.path.exists(TASK_A_DATA_ABS_PATH):
@@ -89,6 +95,7 @@ def solve(task: str, stages: List[str], device: str):
                 dataset_path=TASK_A_DATA_ABS_PATH,
                 device=device,
                 config_path=TASK_A_CONFIG_PATH,
+                save_result=save,
             )
             solution_A.solve(stages)
         else:
@@ -102,6 +109,7 @@ def solve(task: str, stages: List[str], device: str):
                 dataset_path=TASK_B_DATA_ABS_PATH,
                 device=device,
                 config_path=TASK_B_CONFIG_PATH,
+                save_result=save,
             )
             solution_B.solve(stages)
         else:
@@ -121,7 +129,8 @@ def main():
             print_info()
         elif args.action == "solve":
             stages = args.stages.split(",")
-            solve(args.task, stages, args.device)
+            save_result = args.save.lower() == "true"
+            solve(args.task, stages, args.device, save_result)
         else:
             raise Exception(f"Unsupported action: {args.action}")
     except Exception as e:
