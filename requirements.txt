@@ -5,10 +5,7 @@ numpy
 # Models
 scikit-learn
 # GPU version
-# If you want to use CPU only, use py-xgboost-cpu
+# If you want to use CPU instead, use py-xgboost-cpu
 py-xgboost-gpu
-# copy numpy to GPU
-# for cuda 11.8, see: https://pypi.org/project/cupy/
-cupy-cuda11x
 # save results
 pandas

@@ -15,7 +15,6 @@ sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 from constants import N_KFOLD, DEFAULT_RANDOM_STATE
 
 import xgboost as xgb
-import cupy as cp
 from pandas import DataFrame
 from sklearn.model_selection import StratifiedKFold, GridSearchCV
 

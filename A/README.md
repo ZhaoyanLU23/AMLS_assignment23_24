@@ -13,9 +13,8 @@ is to classify an image onto "Normal" (no pneumonia) or "Pneumonia"
     * [x] Understand [boosted trees](https://xgboost.readthedocs.io/en/stable/tutorials/model.html)
     * [x] Try a demo of XGBoost
 * [ ] Report training, validation, and testing errors / accuracies, along with describe any hyper-parameter tunice process.
-    * [ ] [Pre-process images](https://scipy-lectures.org/packages/scikit-image/)
     * [ ] Add tools to [estimate models](https://xgboost.readthedocs.io/en/stable/python/sklearn_estimator.html)
-    * [ ] [Get the best model and all metrics](https://xgboost.readthedocs.io/en/stable/python/examples/sklearn_examples.html#sphx-glr-python-examples-sklearn-examples-py) using [cross validation](https://scikit-learn.org/stable/modules/cross_validation.html#cross-validation)
+    * [x] [Get the best model and all metrics](https://xgboost.readthedocs.io/en/stable/python/examples/sklearn_examples.html#sphx-glr-python-examples-sklearn-examples-py) using [cross validation](https://scikit-learn.org/stable/modules/cross_validation.html#cross-validation)
     * [ ] Try [early stopping](https://xgboost.readthedocs.io/en/stable/python/sklearn_estimator.html#early-stopping)
     * [ ] Save and load [models](https://xgboost.readthedocs.io/en/stable/tutorials/saving_model.html)
     * [ ] Plot all figures needed
