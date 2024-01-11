@@ -111,13 +111,16 @@ class Solution:
     def test(self):
         logger.info(f"[{self.task_name}] [Testing] Running on {self.device}...")
         if not self.classifier:
+            logger.debug(f"Training stage skipped!")
             if os.path.exists(self.training_model_path):
                 # load model from file
-                with open(self.training_model_path, "r") as f:
-                    model_json = json.load(f)
-                self.classifier = xgb.XGBClassifier(model_json)
+                self.classifier = xgb.XGBClassifier()
+                self.classifier.load_model(self.training_model_path)
+                logger.debug(
+                    f"Model {self.classifier} loaded from {self.training_model_path}!"
+                )
         assert (
-            self.classifier
-        ), "No model exists! Please use `--stages train` to train a model so that you can run testing."
+            self.classifier is not None
+        ), f"ERROR: No model exists! The model may be saved to {self.training_model_path}. Please use `--stages train` to train a model so that you can run testing."
         test_score = self.classifier.score(self.dataset.X_test, self.dataset.y_test)
         logger.info(f"testing score: {test_score}")
