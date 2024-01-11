@@ -21,16 +21,16 @@ class Dataset:
         logger.info(
             "We concatenate the training set and validation set together for a better cross validation."
         )
-        self.X_train = data.get("train_images", np.asarray([]))
-        self.X_train = self._reshape_to_2_dims(self.X_train)
+        self.old_X_train = data.get("train_images", np.asarray([]))
+        self.old_X_train = self._reshape_to_2_dims(self.old_X_train)
         X_val = data.get("val_images", np.asarray([]))
-        X_val = self._reshape_to_2_dims(X_val)
-        self.X_train = np.concatenate((self.X_train, X_val), axis=0)
+        self.X_val = self._reshape_to_2_dims(X_val)
+        self.X_train = np.concatenate((self.old_X_train, self.X_val), axis=0)
         logger.debug(f"X_train shape: {self.X_train.shape}")
 
-        self.y_train = data.get("train_labels", np.asarray([]))
-        y_val = data.get("val_labels", np.asarray([]))
-        self.y_train = np.concatenate((self.y_train, y_val), axis=0)
+        self.old_y_train = data.get("train_labels", np.asarray([]))
+        self.y_val = data.get("val_labels", np.asarray([]))
+        self.y_train = np.concatenate((self.old_y_train, self.y_val), axis=0)
         logger.debug(f"y_train shape: {self.y_train.shape}")
 
         self.X_test = data.get("test_images", np.asarray([]))
