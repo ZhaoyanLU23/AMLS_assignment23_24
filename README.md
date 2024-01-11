@@ -27,19 +27,25 @@ $ tree
 .
 ├── A
 │   ├── README.md
-│   └── solution.py             # Solution for task A
+│   ├── config.json
+│   ├── solution.py                 # Solution for task A
+│   └── task_a_training_model.json  # Model saved
 ├── B
 │   ├── README.md
-│   └── solution.py             # Solution for task B
-├── Datasets                    # An empty dir for Datasets
+│   ├── config.json
+│   ├── solution.py                 # Solution for task B
+│   └── task_b_training_model.json  # Model saved
+├── Datasets                        # An empty dir for Datasets
 ├── Makefile
 ├── README.md
-├── environment.yml             # conda environment config
-├── main.py                     # Entrypoint of this repo
-├── requirements.txt            # python package requirements
+├── constants.py                    # global constants
+├── environment.yml                 # conda environment config
+├── main.py                         # Entrypoint of this repo
+├── requirements.txt                # python package requirements
 └── utils
-    ├── dataset.py
-    └── logger.py
+    ├── dataset.py                  # Dataset Loader
+    ├── logger.py                   # Logger for this project
+    └── solution.py                 # Solution framework for each task
 ```
 
 ## Datasets
@@ -124,20 +130,24 @@ optional arguments:
   -d, --debug    Print lots of debugging statements
   -v, --verbose  Be verbose
 
-# TODO: update help
+# options for the solve action
 $ python main.py solve --help
 usage: main.py solve [-h] [--task TASK] [--stages STAGES]
                      [--device DEVICE] [--save SAVE]
+                     [--early_stopping_rounds EARLY_STOPPING_ROUNDS]
 
 optional arguments:
-  -h, --help       show this help message and exit
-  --task TASK      task to solve: A, B, or all; default: all
-  --stages STAGES  task stages: val, train, test, or all; default:
-                   val,train,test
-  --device DEVICE  Device ordinal for xgboost, available options: cpu,
-                   cuda, and gpu; default: cuda
-  --save SAVE      Save results or not, available options: True or
-                   False; default: True
+  -h, --help            show this help message and exit
+  --task TASK           task to solve: A, B, or all; default: all
+  --stages STAGES       task stages: val, train, test, or all;
+                        default: val,train,test
+  --device DEVICE       Device ordinal for xgboost, available options:
+                        cpu, cuda, and gpu; default: cuda
+  --save SAVE           Save results or not, available options: True
+                        or False; default: True
+  --early_stopping_rounds EARLY_STOPPING_ROUNDS
+                        Used to prevent overfitting; require >= 0,
+                        default: 3
 ```
 
 * Show info
