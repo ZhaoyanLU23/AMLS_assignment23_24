@@ -39,5 +39,13 @@
                 1
             ]
         }
+    },
+    "training": {
+        "colsample_bytree": 0.7,
+        "gamma": 0,
+        "learning_rate": 0.2,
+        "max_depth": 9,
+        "min_child_weight": 7,
+        "subsample": 0.7
     }
 }

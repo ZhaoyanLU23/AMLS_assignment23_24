@@ -28,6 +28,20 @@ class SolutionB(Solution):
         self.task_dir = TASK_B_DIR
 
     def val(self):
+        # 12/31 02:06:55 [INFO]: Searching xgboost params: {'learning_rate': [0.1, 0.2, 0.5], 'max_depth': [5, 7, 9], 'min_child_weight': [1, 3, 5, 7], 'gamma': [0], 'subsample': [0.3, 0.5, 0.7], 'colsample_bytree': [0.3, 0.5, 0.7]}...
+        # 12/31 12:34:27 [INFO]: XGBClassifier(base_score=None, booster=None, callbacks=None,
+        #               colsample_bylevel=None, colsample_bynode=None,
+        #               colsample_bytree=0.7, device='cuda:1', early_stopping_rounds=None,
+        #               enable_categorical=False, eval_metric=None, feature_types=None,
+        #               gamma=0, grow_policy=None, importance_type=None,
+        #               interaction_constraints=None, learning_rate=0.2, max_bin=None,
+        #               max_cat_threshold=None, max_cat_to_onehot=None,
+        #               max_delta_step=None, max_depth=9, max_leaves=None,
+        #               min_child_weight=7, missing=nan, monotone_constraints=None,
+        #               multi_strategy=None, n_estimators=None, n_jobs=None,
+        #               num_parallel_tree=None, objective='multi:softprob', ...)
+        # 12/31 12:34:27 [INFO]: 0.77423
+        # 12/31 12:34:27 [INFO]: {'colsample_bytree': 0.7, 'gamma': 0, 'learning_rate': 0.2, 'max_depth': 9, 'min_child_weight': 7, 'subsample': 0.7}
         super().val()
 
     def train(self):
@@ -35,50 +49,3 @@ class SolutionB(Solution):
 
     def test(self):
         super().test()
-
-
-# 12/31 02:06:55 [INFO]: Searching xgboost params: {'learning_rate': [0.1, 0.2, 0.5], 'max_depth': [5, 7, 9], 'min_child_weight': [1, 3, 5, 7], 'gamma': [0], 'subsample': [0.3, 0.5, 0.7], 'colsample_bytree': [0.3, 0.5, 0.7]}...
-# /home/uceezl8/.conda/envs/amls-final-zhaoyanlu/lib/python3.9/site-packages/xgboost/core.py:160: UserWarning: [02:07:10] WARNING: /home/conda/feedstock_root/build_artifacts/xgboost-split_1703076482591/work/src/common/error_msg.cc:58: Falling back to prediction using DMatrix due to mismatched devices. This might lead to higher memory usage and slower performance. XGBoost is running on: cuda:1, while the input data is on: cpu.
-# Potential solutions:
-# - Use a data structure that matches the device ordinal in the booster.
-# - Set the device for booster before call to inplace_predict.
-
-# This warning will only be shown once.
-
-#   warnings.warn(smsg, UserWarning)
-# 12/31 12:34:27 [INFO]: XGBClassifier(base_score=None, booster=None, callbacks=None,
-#               colsample_bylevel=None, colsample_bynode=None,
-#               colsample_bytree=0.7, device='cuda:1', early_stopping_rounds=None,
-#               enable_categorical=False, eval_metric=None, feature_types=None,
-#               gamma=0, grow_policy=None, importance_type=None,
-#               interaction_constraints=None, learning_rate=0.2, max_bin=None,
-#               max_cat_threshold=None, max_cat_to_onehot=None,
-#               max_delta_step=None, max_depth=9, max_leaves=None,
-#               min_child_weight=7, missing=nan, monotone_constraints=None,
-#               multi_strategy=None, n_estimators=None, n_jobs=None,
-#               num_parallel_tree=None, objective='multi:softprob', ...)
-# 12/31 12:34:27 [INFO]: 0.77423
-# 12/31 12:34:27 [INFO]: {'colsample_bytree': 0.7, 'gamma': 0, 'learning_rate': 0.2, 'max_depth': 9, 'min_child_weight': 7, 'subsample': 0.7}
-
-# 12/31 01:27:44 [INFO]: Searching xgboost params: {'learning_rate': [0.2], 'max_depth': [5], 'min_child_weight': [1], 'gamma': [0], 'subsample': [0.6], 'colsample_bytree': [0.6]}...
-# /home/uceezl8/.conda/envs/amls-final-zhaoyanlu/lib/python3.9/site-packages/xgboost/core.py:160: UserWarning: [01:27:59] WARNING: /home/conda/feedstock_root/build_artifacts/xgboost-split_1703076482591/work/src/common/error_msg.cc:58: Falling back to prediction using DMatrix due to mismatched devices. This might lead to higher memory usage and slower performance. XGBoost is running on: cuda:1, while the input data is on: cpu.
-# Potential solutions:
-# - Use a data structure that matches the device ordinal in the booster.
-# - Set the device for booster before call to inplace_predict.
-
-# This warning will only be shown once.
-
-#   warnings.warn(smsg, UserWarning)
-# 12/31 01:29:16 [INFO]: XGBClassifier(base_score=None, booster=None, callbacks=None,
-#               colsample_bylevel=None, colsample_bynode=None,
-#               colsample_bytree=0.6, device='cuda:1', early_stopping_rounds=None,
-#               enable_categorical=False, eval_metric=None, feature_types=None,
-#               gamma=0, grow_policy=None, importance_type=None,
-#               interaction_constraints=None, learning_rate=0.2, max_bin=None,
-#               max_cat_threshold=None, max_cat_to_onehot=None,
-#               max_delta_step=None, max_depth=5, max_leaves=None,
-#               min_child_weight=1, missing=nan, monotone_constraints=None,
-#               multi_strategy=None, n_estimators=None, n_jobs=None,
-#               num_parallel_tree=None, objective='multi:softprob', ...)
-# 12/31 01:29:16 [INFO]: 0.75185
-# 12/31 01:29:16 [INFO]: {'colsample_bytree': 0.6, 'gamma': 0, 'learning_rate': 0.2, 'max_depth': 5, 'min_child_weight': 1, 'subsample': 0.6}
