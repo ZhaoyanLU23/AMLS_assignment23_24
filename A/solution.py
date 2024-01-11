@@ -27,6 +27,8 @@ class SolutionA(Solution):
         )
         self.task_name = "Task A"
         self.task_dir = TASK_A_DIR
+        # target_names come from: https://github.com/MedMNIST/MedMNIST/blob/main/medmnist/info.py
+        self.target_names = ["normal", "pneumonia"]
 
     def val(self):
         # 12/31 01:26:58 [INFO]: XGBClassifier(base_score=None, booster=None, callbacks=None,
@@ -45,7 +47,33 @@ class SolutionA(Solution):
         super().val()
 
     def train(self):
+        # 01/11 04:30:03 [INFO]: training score: 1.0
+        # 01/11 04:30:03 [INFO]: confusion matrix for training:
+        # [[1349    0]
+        #  [   0 3883]]
+        # 01/11 04:30:03 [INFO]: classification report for training:
+        #               precision    recall  f1-score   support
+
+        #       normal       1.00      1.00      1.00      1349
+        #    pneumonia       1.00      1.00      1.00      3883
+
+        #     accuracy                           1.00      5232
+        #    macro avg       1.00      1.00      1.00      5232
+        # weighted avg       1.00      1.00      1.00      5232
         super().train()
 
     def test(self):
+        # 01/11 04:30:03 [INFO]: testing score: 0.842948717948718
+        # 01/11 04:30:03 [INFO]: confusion matrix for testing:
+        # [[141  93]
+        #  [  5 385]]
+        # 01/11 04:30:03 [INFO]: classification report for testing:
+        #               precision    recall  f1-score   support
+
+        #       normal       0.97      0.60      0.74       234
+        #    pneumonia       0.81      0.99      0.89       390
+
+        #     accuracy                           0.84       624
+        #    macro avg       0.89      0.79      0.81       624
+        # weighted avg       0.87      0.84      0.83       624
         super().test()

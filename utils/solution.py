@@ -16,6 +16,7 @@ from constants import N_KFOLD, DEFAULT_RANDOM_STATE
 
 import xgboost as xgb
 from sklearn.model_selection import StratifiedKFold, GridSearchCV
+from sklearn.metrics import confusion_matrix, classification_report
 
 
 class Solution:
@@ -29,6 +30,7 @@ class Solution:
         self.config = {}
         self.save_result = save_result
         self.classifier = None
+        self.target_names = None
         if os.path.exists(config_path):
             with open(config_path, "r") as f:
                 self.config = json.load(f)
@@ -108,6 +110,14 @@ class Solution:
         train_score = self.classifier.score(self.dataset.X_train, self.dataset.y_train)
         logger.info(f"training score: {train_score}")
 
+        y_pred = self.classifier.predict(self.dataset.X_train)
+        mat = confusion_matrix(self.dataset.y_train, y_pred)
+        logger.info(f"confusion matrix for training: \n{mat}")
+        report = classification_report(
+            self.dataset.y_train, y_pred, target_names=self.target_names
+        )
+        logger.info(f"classification report for training:\n{report}")
+
     def test(self):
         logger.info(f"[{self.task_name}] [Testing] Running on {self.device}...")
         if not self.classifier:
@@ -124,3 +134,11 @@ class Solution:
         ), f"ERROR: No model exists! The model may be saved to {self.training_model_path}. Please use `--stages train` to train a model so that you can run testing."
         test_score = self.classifier.score(self.dataset.X_test, self.dataset.y_test)
         logger.info(f"testing score: {test_score}")
+
+        y_pred = self.classifier.predict(self.dataset.X_test)
+        mat = confusion_matrix(self.dataset.y_test, y_pred)
+        logger.info(f"confusion matrix for testing: \n{mat}")
+        report = classification_report(
+            self.dataset.y_test, y_pred, target_names=self.target_names
+        )
+        logger.info(f"classification report for testing:\n{report}")
