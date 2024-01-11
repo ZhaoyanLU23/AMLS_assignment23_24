@@ -64,20 +64,6 @@ class Solution:
 
         X_train = self.dataset.X_train
         y_train = self.dataset.y_train
-        # Copy dataset to GPU if applicable
-        # if self.device == "cpu":
-        #     X_train = self.dataset.X_train
-        #     y_train = self.dataset.y_train
-        # else:
-        #     if ":" in self.device:
-        #         device_no = self.device.split(":")[1]
-        #     else:
-        #         device_no = 0
-        #     logger.info(f"Device No: {device_no}")
-        #     cp.cuda.Device(device_no).use()
-        #     X_train = cp.array(self.dataset.X_train)
-        #     y_train = cp.array(self.dataset.y_train)
-        #     logger.info(f"Dataset copied: {self.device}")
 
         sh = GridSearchCV(
             base_estimator,
