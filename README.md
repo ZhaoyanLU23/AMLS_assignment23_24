@@ -85,6 +85,8 @@ Datasets
 
 * `cuda 11.8`: If you want to use `py-xgboost-gpu`, GPU and `cuda` are required
 
+* Python packages
+
 ```bash
 $ cat requirements.txt
 # format python files
