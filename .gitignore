@@ -6,3 +6,5 @@ __pycache__
 # unfinished ipython notebook
 Untitled*.ipynb
 .ipynb_checkpoints/
+# Mac filesystem
+.DS_Store
