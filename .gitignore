@@ -3,3 +3,6 @@ __pycache__
 # results
 **/*.csv
 **/*.tar.gz
+# unfinished ipython notebook
+Untitled*.ipynb
+.ipynb_checkpoints/

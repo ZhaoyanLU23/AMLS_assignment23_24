@@ -54,26 +54,26 @@ class SolutionA(Solution):
 
     def train(self):
         # With early_stopping_rounds = 0
-        # 01/11 04:30:03 [INFO]: training score: 1.0
-        # 01/11 04:30:03 [INFO]: confusion matrix for training:
-        # [[1349    0]
-        #  [   0 3883]]
-        # 01/11 04:30:03 [INFO]: classification report for training:
+        # 01/12 03:22:14 [INFO]: training score: 0.996368501529052
+        # 01/12 03:22:14 [INFO]: confusion matrix for training:
+        # [[1335   14]
+        #  [   5 3878]]
+        # 01/12 03:22:14 [INFO]: classification report for training:
         #               precision    recall  f1-score   support
 
-        #       normal       1.00      1.00      1.00      1349
+        #       normal       1.00      0.99      0.99      1349
         #    pneumonia       1.00      1.00      1.00      3883
 
         #     accuracy                           1.00      5232
-        #    macro avg       1.00      1.00      1.00      5232
+        #    macro avg       1.00      0.99      1.00      5232
         # weighted avg       1.00      1.00      1.00      5232
 
         # With early_stopping_rounds = 3
-        # 01/11 05:26:45 [INFO]: training score: 0.9952217125382263
-        # 01/11 05:26:45 [INFO]: confusion matrix for training:
+        # 01/12 03:20:39 [INFO]: training score: 0.9952217125382263
+        # 01/12 03:20:39 [INFO]: confusion matrix for training:
         # [[1333   16]
         #  [   9 3874]]
-        # 01/11 05:26:45 [INFO]: classification report for training:
+        # 01/12 03:20:39 [INFO]: classification report for training:
         #               precision    recall  f1-score   support
 
         #       normal       0.99      0.99      0.99      1349
@@ -86,26 +86,26 @@ class SolutionA(Solution):
 
     def test(self):
         # With early_stopping_rounds = 0
-        # 01/11 04:30:03 [INFO]: testing score: 0.842948717948718
-        # 01/11 04:30:03 [INFO]: confusion matrix for testing:
-        # [[141  93]
-        #  [  5 385]]
-        # 01/11 04:30:03 [INFO]: classification report for testing:
+        # 01/12 03:22:14 [INFO]: testing score: 0.8509615384615384
+        # 01/12 03:22:14 [INFO]: confusion matrix for testing:
+        # [[148  86]
+        #  [  7 383]]
+        # 01/12 03:22:14 [INFO]: classification report for testing:
         #               precision    recall  f1-score   support
 
-        #       normal       0.97      0.60      0.74       234
-        #    pneumonia       0.81      0.99      0.89       390
+        #       normal       0.95      0.63      0.76       234
+        #    pneumonia       0.82      0.98      0.89       390
 
-        #     accuracy                           0.84       624
-        #    macro avg       0.89      0.79      0.81       624
-        # weighted avg       0.87      0.84      0.83       624
+        #     accuracy                           0.85       624
+        #    macro avg       0.89      0.81      0.83       624
+        # weighted avg       0.87      0.85      0.84       624
 
         # With early_stopping_rounds = 3
-        # 01/11 05:26:45 [INFO]: testing score: 0.8541666666666666
-        # 01/11 05:26:45 [INFO]: confusion matrix for testing:
+        # 01/12 03:20:39 [INFO]: testing score: 0.8541666666666666
+        # 01/12 03:20:39 [INFO]: confusion matrix for testing:
         # [[152  82]
         #  [  9 381]]
-        # 01/11 05:26:45 [INFO]: classification report for testing:
+        # 01/12 03:20:39 [INFO]: classification report for testing:
         #               precision    recall  f1-score   support
 
         #       normal       0.94      0.65      0.77       234

@@ -51,6 +51,12 @@ class Solution:
         path = os.path.join(self.task_dir, training_model_filename)
         return path
 
+    @property
+    def evals_result_path(self):
+        evals_result_filename = f'{self.task_name.lower().replace(" ", "_")}_early_stopping_rounds_{self.early_stopping_rounds}_evals_result.json'
+        path = os.path.join(self.task_dir, evals_result_filename)
+        return path
+
     def solve(self, stages: List[str]):
         logger.info("=====================================")
         logger.info(f"          Solving {self.task_name} ...         ")
@@ -115,18 +121,32 @@ class Solution:
             early_stopping_rounds=self.early_stopping_rounds,
             **training_config,
         )
-        if self.early_stopping_rounds > 0:
-            self.classifier.fit(
-                self.dataset.old_X_train,
-                self.dataset.old_y_train,
-                eval_set=[(self.dataset.X_val, self.dataset.y_val)],
-            )
-        else:
-            self.classifier.fit(self.dataset.X_train, self.dataset.y_train)
+        self.classifier.fit(
+            self.dataset.old_X_train,
+            self.dataset.old_y_train,
+            eval_set=[
+                (self.dataset.old_X_train, self.dataset.old_y_train),
+                # the last entry in eval_set will be used for early stopping
+                # https://xgboost.readthedocs.io/en/stable/python/python_api.html#xgboost.XGBClassifier
+                (self.dataset.X_val, self.dataset.y_val),
+            ],
+        )
 
         if self.save_result:
+            import json
+
             # Save model into JSON format.
             self.classifier.save_model(self.training_model_path)
+            logger.info(
+                f"Model saved for {self.task_name} at {self.training_model_path}!"
+            )
+            # Save training set and val set results for plotting
+            evals_result = self.classifier.evals_result()
+            with open(self.evals_result_path, "w") as f:
+                json.dump(evals_result, f)
+            logger.info(
+                f"Evals result saved for {self.task_name} at {self.evals_result_path}!"
+            )
 
         train_score = self.classifier.score(self.dataset.X_train, self.dataset.y_train)
         logger.info(f"training score: {train_score}")

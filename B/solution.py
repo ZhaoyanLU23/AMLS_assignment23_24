@@ -64,58 +64,60 @@ class SolutionB(Solution):
 
     def train(self):
         # With early_stopping_rounds = 0
-        # 01/11 04:34:58 [INFO]: training score: 0.998
-        # 01/11 04:35:00 [INFO]: confusion matrix for training:
-        # [[10406     1     0     0     0     0     0     0     0]
-        # [    0 10565     0     0     0     0     0     1     0]
-        # [    0     0 11480     0     3     1     0    25     3]
-        # [    0     0     0 11557     0     0     0     0     0]
-        # [    0     0     8     0  8875     4     0     4     5]
-        # [    0     0    22     0    10 13481     0    23     0]
-        # [    0     0     0     0     2     0  8757     1     3]
-        # [    0     0    53     0     0    19     0 10368     6]
-        # [    0     0     0     0     4     1     0     1 14311]]
-        # 01/11 04:35:00 [INFO]: classification report for training:
-        #                                     precision    recall  f1-score   support
+        # 01/12 03:06:44 [INFO]: training score: 0.98143
+        # 01/12 03:06:46 [INFO]: confusion matrix for training:
+        # [[10379     0     1     0    20     1     6     0     0]
+        #  [   31 10506     0     0    15     1     2     6     5]
+        #  [    0     3 11094    22    18   106    33   127   109]
+        #  [    0     0     2 11492     8     1    26     8    20]
+        #  [   12     1    17    14  8671     7   101    56    17]
+        #  [    5     0    62     1    11 13327     7   118     5]
+        #  [    4     0     8    21   126    11  8434    12   147]
+        #  [    0     0   111     2    37   116    30 10112    38]
+        #  [    0     2    18    16    24    26    56    47 14128]]
+        # 01/12 03:06:47 [INFO]: classification report for training:
+        #                                       precision    recall  f1-score   support
 
-        #                             adipose       1.00      1.00      1.00     10407
-        #                         background       1.00      1.00      1.00     10566
-        #                             debris       0.99      1.00      1.00     11512
-        #                         lymphocytes       1.00      1.00      1.00     11557
-        #                             mucus       1.00      1.00      1.00      8896
-        #                     smooth muscle       1.00      1.00      1.00     13536
-        #                 normal colon mucosa       1.00      1.00      1.00      8763
-        #             cancer-associated stroma       0.99      0.99      0.99     10446
-        # colorectal adenocarcinoma epithelium       1.00      1.00      1.00     14317
+        #                              adipose       1.00      1.00      1.00     10407
+        #                           background       1.00      0.99      1.00     10566
+        #                               debris       0.98      0.96      0.97     11512
+        #                          lymphocytes       0.99      0.99      0.99     11557
+        #                                mucus       0.97      0.97      0.97      8896
+        #                        smooth muscle       0.98      0.98      0.98     13536
+        #                 0.2,
+        # {
+        #                  normal colon mucosa       0.97      0.96      0.97      8763
+        #             cancer-associated stroma       0.96      0.97      0.97     10446
+        # colorectal adenocarcinoma epithelium       0.98      0.99      0.98     14317
 
-        #                             accuracy                           1.00    100000
-        #                         macro avg       1.00      1.00      1.00    100000
-        #                         weighted avg       1.00      1.00      1.00    100000
+        #                             accuracy                           0.98    100000
+        #                            macro avg       0.98      0.98      0.98    100000
+        #                         weighted avg       0.98      0.98      0.98    100000
 
         # With early_stopping_rounds = 3
-        # 01/11 05:27:24 [INFO]: training score: 0.97633
-        # 01/11 05:27:26 [INFO]: confusion matrix for training:
-        # [[10371     0     1     0    25     2     8     0     0]
-        #  [   43 10492     0     0    13     0     2    10     6]
-        #  [    0     3 11007    19    25   116    32   161   149]
-        #  [    0     0     4 11468    13     1    32     8    31]
-        #  [   14     2    23    12  8632    15   110    55    33]
-        #  [    8     0    95     0    16 13243     7   157    10]
-        #  [    3     0     4    23   133    18  8362    13   207]
-        #  [    0     0   196     2    42   146    34  9979    47]
-        #  [    0     1    25    22    31    30    60    69 14079]]
-        # 01/11 05:27:26 [INFO]: classification report for training:
+        # 01/12 03:19:25 [INFO]: training score: 0.98118
+        # 01/12 03:19:27 [INFO]: confusion matrix for training:
+        # [[10379     0     1     0    20     1     6     0     0]
+        #  [   33 10505     0     0    14     1     2     6     5]
+        #  [    0     3 11089    22    19   103    34   133   109]
+        #  [    0     0     2 11491     8     1    26     8    21]
+        #  [   12     1    17    13  8674     7    98    54    20]
+        #  [    5     0    64     1     9 13325     7   119     6]
+        #  [    4     0     8    18   120    14  8435    13   151]
+        #  [    0     0   109     2    37   120    30 10107    41]
+        #  [    0     2    18    16    25    28    65    50 14113]]
+        # 01/12 03:19:27 [INFO]: classification report for training:
         #                                       precision    recall  f1-score   support
 
         #                              adipose       0.99      1.00      1.00     10407
         #                           background       1.00      0.99      1.00     10566
-        #                               debris       0.97      0.96      0.96     11512
+        #                               debris       0.98      0.96      0.97     11512
         #                          lymphocytes       0.99      0.99      0.99     11557
-        #                                mucus       0.97      0.97      0.97      8896
+        #                                mucus       0.97      0.98      0.97      8896
         #                        smooth muscle       0.98      0.98      0.98     13536
-        #                  normal colon mucosa       0.97      0.95      0.96      8763
-        #             cancer-associated stroma       0.95      0.96      0.96     10446
-        # colorectal adenocarcinoma epithelium       0.97      0.98      0.98     14317
+        #                  normal colon mucosa       0.97      0.96      0.97      8763
+        #             cancer-associated stroma       0.96      0.97      0.97     10446
+        # colorectal adenocarcinoma epithelium       0.98      0.99      0.98     14317
 
         #                             accuracy                           0.98    100000
         #                            macro avg       0.98      0.98      0.98    100000
@@ -124,60 +126,61 @@ class SolutionB(Solution):
 
     def test(self):
         # With early_stopping_rounds = 0
-        # 01/11 04:33:41 [INFO]: testing score: 0.7034818941504178
-        # 01/11 04:33:41 [INFO]: confusion matrix for testing:
-        # [[1012    0    5    0   30  286    2    0    3]
+        # 01/12 03:06:47 [INFO]: testing score: 0.7239554317548746
+        # 01/12 03:06:47 [INFO]: confusion matrix for testing:
+        # [[1044    4    7    0   18  256    2    0    7]
         #  [   0  847    0    0    0    0    0    0    0]
-        #  [   0    0  119    8    0  156    1   47    8]
-        #  [   1    0    4  306  173    3   64    0   83]
-        #  [  45   82    0   46  817    1   22    2   20]
-        #  [   0    0  149    2    4  288   37   89   23]
-        #  [   5    0   11   11   40   13  481    2  178]
-        #  [   0    0  102    0    6   65   11  161   76]
-        #  [   0    0   38   31   16    8  117    3 1020]]
-        # 01/11 04:33:41 [INFO]: classification report for testing:
+        #  [   0    0  127    8    0  156    1   44    3]
+        #  [   0    3    7  364  134    2   72    0   52]
+        #  [  32  144    0   28  794    1   23    1   12]
+        #  [   0    0  134    7    1  298   46   92   14]
+        #  [   5    1    4   23   20   16  520    0  152]
+        #  [   0    0  112    1    3   66   14  160   65]
+        #  [   0    0   48   24    8    6  102    1 1044]]
+        # 01/12 03:06:47 [INFO]: classification report for testing:
         #                                       precision    recall  f1-score   support
 
-        #                              adipose       0.95      0.76      0.84      1338
-        #                           background       0.91      1.00      0.95       847
-        #                               debris       0.28      0.35      0.31       339
-        #                          lymphocytes       0.76      0.48      0.59       634
-        #                                mucus       0.75      0.79      0.77      1035
-        #                        smooth muscle       0.35      0.49      0.41       592
-        #                  normal colon mucosa       0.65      0.65      0.65       741
-        #             cancer-associated stroma       0.53      0.38      0.44       421
-        # colorectal adenocarcinoma epithelium       0.72      0.83      0.77      1233
+        #                              adipose       0.97      0.78      0.86      1338
+        #                           background       0.85      1.00      0.92       847
+        #                               debris       0.29      0.37      0.33       339
+        #                          lymphocytes       0.80      0.57      0.67       634
+        #                                mucus       0.81      0.77      0.79      1035
+        #                        smooth muscle       0.37      0.50      0.43       592
+        #                  normal colon mucosa       0.67      0.70      0.68       741
+        #             cancer-associated stroma       0.54      0.38      0.45       421
+        # colorectal adenocarcinoma epithelium       0.77      0.85      0.81      1233
 
-        #                             accuracy                           0.70      7180
-        #                            macro avg       0.66      0.64      0.64      7180
-        #                         weighted avg       0.73      0.70      0.71      7180
+        #                             accuracy                           0.72      7180
+        #                            macro avg       0.67      0.66      0.66      7180
+        #                         weighted avg       0.75      0.72      0.73      7180
 
         # With early_stopping_rounds = 3
-        # 01/11 05:24:42 [INFO]: testing score: 0.7013927576601672
-        # 01/11 05:24:42 [INFO]: confusion matrix for testing:
-        # [[1016    0    5    0   20  286    5    0    6]
-        # [   0  847    0    0    0    0    0    0    0]
-        # [   0    0  119    8    0  156    1   51    4]
-        # [   0    0    9  317  177    3   55    0   73]
-        # [  47   93    1   43  804    2   26    2   17]
-        # [   0    0  151    2    1  281   52   90   15]
-        # [  10    0    6   27   30   15  469    1  183]
-        # [   0    0   97    1   10   64   15  159   75]
-        # [   0    0   42   23   12   14  117    1 1024]]
-        # 01/11 05:24:42 [INFO]: classification report for testing:
-        #                                     precision    recall  f1-score   support
+        # 01/12 02:51:16 [INFO]: [Task B] [Testing] Running on cuda:1...
+        # 01/12 02:51:16 [INFO]: testing score: 0.7228412256267409
+        # 01/12 02:51:16 [INFO]: confusion matrix for testing:
+        # [[1043    5    4    0   20  255    4    0    7]
+        #  [   0  847    0    0    0    0    0    0    0]
+        #  [   0    0  124    8    0  158    1   44    4]
+        #  [   0    2    4  357  135    3   73    0   60]
+        #  [  31  137    0   28  801    1   22    1   14]
+        #  [   0    0  135    6    2  296   45   92   16]
+        #  [   6    1    7   21   25   13  515    0  153]
+        #  [   0    0  103    1    3   67   12  166   69]
+        #  [   0    0   47   24   10    8  103    0 1041]]
+        # 01/12 02:51:16 [INFO]: classification report for testing:
+        #                                       precision    recall  f1-score   support
 
-        #                             adipose       0.95      0.76      0.84      1338
-        #                         background       0.90      1.00      0.95       847
-        #                             debris       0.28      0.35      0.31       339
-        #                         lymphocytes       0.75      0.50      0.60       634
-        #                             mucus       0.76      0.78      0.77      1035
-        #                     smooth muscle       0.34      0.47      0.40       592
-        #                 normal colon mucosa       0.63      0.63      0.63       741
-        #             cancer-associated stroma       0.52      0.38      0.44       421
-        # colorectal adenocarcinoma epithelium       0.73      0.83      0.78      1233
+        #                              adipose       0.97      0.78      0.86      1338
+        #                           background       0.85      1.00      0.92       847
+        #                               debris       0.29      0.37      0.33       339
+        #                          lymphocytes       0.80      0.56      0.66       634
+        #                                mucus       0.80      0.77      0.79      1035
+        #                        smooth muscle       0.37      0.50      0.42       592
+        #                  normal colon mucosa       0.66      0.70      0.68       741
+        #             cancer-associated stroma       0.55      0.39      0.46       421
+        # colorectal adenocarcinoma epithelium       0.76      0.84      0.80      1233
 
-        #                             accuracy                           0.70      7180
-        #                         macro avg       0.65      0.63      0.64      7180
-        #                         weighted avg       0.72      0.70      0.71      7180
+        #                             accuracy                           0.72      7180
+        #                            macro avg       0.67      0.66      0.66      7180
+        #                         weighted avg       0.74      0.72      0.73      7180
         super().test()
