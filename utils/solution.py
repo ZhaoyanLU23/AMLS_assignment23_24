@@ -72,6 +72,7 @@ class Solution:
         logger.info(f"----------{self.task_name} finished!-----------")
 
     def val(self):
+        """Cross Validation"""
         logger.info(f"[{self.task_name}] [Validation] Running on {self.device}...")
         val_config: dict = self.config.get("validation", {})
         param_grid: dict = val_config.get("param_grid", {})
@@ -111,6 +112,7 @@ class Solution:
             df.to_csv(cv_result_path)
 
     def train(self):
+        """Training"""
         logger.info(f"[{self.task_name}] [Training] Running on {self.device}...")
         training_config: dict = self.config.get("training", {})
         random_state: int = self.config.get("random_state", DEFAULT_RANDOM_STATE)
@@ -161,6 +163,7 @@ class Solution:
         logger.info(f"classification report for training:\n{report}")
 
     def test(self):
+        """Testing"""
         logger.info(f"[{self.task_name}] [Testing] Running on {self.device}...")
 
         if not self.classifier:

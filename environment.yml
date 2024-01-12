@@ -8,4 +8,5 @@ dependencies:
   - numpy
   - py-xgboost-gpu
   - pandas
+  - matplotlib
 prefix: /home/uceezl8/.conda/envs/amls-final-zhaoyanlu

@@ -2,12 +2,10 @@
 # -*- coding: utf-8 -*-
 import os
 import sys
-from typing import List
 
 # hack here
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 
-from utils.logger import logger
 from utils.solution import Solution
 from constants import TASK_A_DIR
 

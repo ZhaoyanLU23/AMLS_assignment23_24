@@ -15,32 +15,40 @@
 
 ## Overview
 
-* [ ] TODO: Add repo description here.
+This repo is for ELEC0134: Applied Machine Learning Systems 23/24.
+
+It is using [XGBoost](https://github.com/dmlc/xgboost) to accomplish the binary classification task and the multi-class classificaion task.
 
 ## Repo Structure
 
-* [ ] TODO: Explain the role of each file.
-
 ```bash
-# TODO: update repo structure
 $ tree
 .
 ├── A
 │   ├── README.md
 │   ├── config.json
 │   ├── solution.py                 # Solution for task A
+│   ├── task_a_early_stopping_rounds_3_evals_result.json
+│   ├── task_a_early_stopping_rounds_None_evals_result.json
 │   └── task_a_training_model.json  # Model saved
 ├── B
 │   ├── README.md
 │   ├── config.json
 │   ├── solution.py                 # Solution for task B
+│   ├── task_b_early_stopping_rounds_3_evals_result.json
+│   ├── task_b_early_stopping_rounds_None_evals_result.json
 │   └── task_b_training_model.json  # Model saved
 ├── Datasets                        # An empty dir for Datasets
 ├── Makefile
 ├── README.md
 ├── constants.py                    # global constants
 ├── environment.yml                 # conda environment config
+├── images
+│   ├── flowchart.png               # draw.io flowchart
+│   ├── task_a_learning_curve.png
+│   └── task_b_learning_curve.png
 ├── main.py                         # Entrypoint of this repo
+├── plot.ipynb                      # Plots
 ├── requirements.txt                # python package requirements
 └── utils
     ├── dataset.py                  # Dataset Loader
@@ -75,10 +83,9 @@ Datasets
 
 ## Requirements
 
-* [ ] TODO: Add assignment requirements.
+* `cuda 11.8`: If you want to use `py-xgboost-gpu`, GPU and `cuda` are required
 
 ```bash
-# TODO: update requirements.txt
 $ cat requirements.txt
 # format python files
 black
@@ -91,9 +98,11 @@ scikit-learn
 py-xgboost-gpu
 # save results
 pandas
+# plot
+matplotlib
 ```
 
-**NOTE**: `py-xgboost-gpu` will use GPU. If you want to use CPU only, use [`py-xgboost-cpu`](https://xgboost.readthedocs.io/en/stable/install.html#conda) and set the device using `--device cpu`.
+**NOTE**: `py-xgboost-gpu` will use GPU. If you want to use CPU instead, use [`py-xgboost-cpu`](https://xgboost.readthedocs.io/en/stable/install.html#conda) and set the device using `--device cpu`.
 
 ## Usage
 
